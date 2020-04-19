@@ -1,5 +1,5 @@
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+// import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,8 +9,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatIconRegistry, MatSelectModule } from "@angular/material";
-//import { FormsModule, ReactiveFormsModule} from "@angular/forms";
+// import { MatIconRegistry, MatSelectModule } from "@angular/material";
+// import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -24,16 +24,16 @@ import { MatIconRegistry, MatSelectModule } from "@angular/material";
     MatSliderModule,
     MatCardModule,
     MatButtonToggleModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+   // FormsModule,
+    // ReactiveFormsModule,
+    // HttpClientModule,
     FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public matIconRegistry: MatIconRegistry) {
-    matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
-  }
+  // constructor(public matIconRegistry: MatIconRegistry) {
+  //   matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+  // }
 }
