@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "data-managment"
+  "defaultProject": "data-managment",
+  "cli": {
+    "analytics": "767e62d9-060a-41c0-bae9-015b2618129b"
+  }
 }
