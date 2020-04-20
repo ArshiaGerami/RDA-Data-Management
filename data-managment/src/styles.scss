@@ -1,7 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
+/*Import Style-variables*/
+
+@import "styles-variables";
+
+/*Import Fonts*/
+
+@import url('https://fonts.googleapis.com/css?family=Helvetica Neue:300,400,500,600,700,800');
+
 /* Import bootStrap*/
 
 @import "~bootstrap/dist/css/bootstrap.css";
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.logo{
+  width:3.5rem;
+}
+
+.mainBackground{
+  background-color: #006A80;
+  background-image: linear-gradient(0deg, #006A80, #00D3FE);
+}
+
+.form-field{
+  width: 100%;
+}

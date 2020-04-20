@@ -1,0 +1,52 @@
+$grid-breakpoints:(
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+/*Body*/
+$data-dark-blue: #006A80;
+$data-light-blue: #00BBE1;
+$data-blue: #00D3FE;
+
+/*Theme*/
+
+$primary: $data-dark-blue;
+$secondary: $data-light-blue;
+
+$border-radius: 0;
+$border-radius-lg: 0;
+
+/*Typography*/
+$font-family-sans-serif:"Helvetica Neue",sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+.h1, .h2{
+  font-weight: 400;
+}
+
+/*Button*/
+
+$btn-padding-x-lg: 1,5rem;
+
+/*NavBar*/
+
+$navbar-light-color:lighten(desaturate($primary,34),29);
+$navbar-light-brand-hover-color: $primary;
+$navbar-light-active-color: $primary;
+
+/*Colors*/
+
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$cyan: #6cb2eb;
+$teal: #4dc9b5;
