@@ -12,7 +12,8 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
-html, body { height: 100%; }
+html,
+//body { height: auto; }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -29,4 +30,26 @@ body {
 
 .form-field{
   width: 100%;
+}
+
+/*Fonts*/
+h1{
+  color: $primary;
+}
+.h1-white{
+  color: #ffffff;
+}
+
+h3{
+  color: $secondary;
+}
+
+/*Mat-card*/
+mat-card{
+  border-radius: 10px !important;
+}
+
+/*Hr*/
+hr{
+  background-color: $primary !important;
 }

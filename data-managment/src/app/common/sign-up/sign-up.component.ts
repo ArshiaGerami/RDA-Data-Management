@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit {
       this.checkPassword = true;
     }
   }
-  ConfirmPasswordEyes(newValue: boolean){
+  confirmPasswordEyes(newValue: boolean){
     if (this.checkConfirmPassword === newValue){
       this.checkConfirmPassword = false;
     } else {
