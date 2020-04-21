@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -13,7 +14,7 @@ export class LogInComponent implements OnInit {
   public logIn: any = {};
   public checkPassword = true;
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +24,14 @@ export class LogInComponent implements OnInit {
       this.checkPassword = false;
     } else{
       this.checkPassword = true;
+    }
+  }
+  temporaryLogin(){
+    if (this.logIn.email === 'admin@rda.com' && this.logIn.password === 'admin@123' ){
+      this.router.navigate(['/en/dashboard']);
+      localStorage.setItem('temporary', 'login');
+    }else{
+      alert('Either email or password is wrong ');
     }
   }
 }
