@@ -1,0 +1,62 @@
+<div class="row mainBackground mt-0">
+  <div class="col-md-12 col-sm-12 col-lg-12">
+    <div class="row my-5">
+      <div class="col-md-8 col-sm-8 col-lg-8">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <h1 class="h1-white">Log In</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <h2>Welcome Back!  if your account already has been approved, you will be allow to log in. </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4">
+        <mat-card>
+          <div class="row mt-2">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <h1 class="mb-0">Welcome Back!</h1>
+              <hr class="mt-0">
+            </div>
+          </div>
+          <mat-card-content>
+            <mat-form-field class="form-field">
+              <mat-label>Email</mat-label>
+              <input matInput required>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
+                     placeholder="********" minlength="8" maxlength="255"
+                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                     #password="ngModel"
+                     [(ngModel)]="logIn.password" required/>
+              <mat-icon matSuffix (click)="passwordEyes(true)">
+                <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
+                <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
+              </mat-icon>
+              <mat-error *ngIf="password.invalid">
+                <mat-error ng-show="confirmPassword.errors.required">
+                  Please fill up this field
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12 col-lg-4 mt-2">
+              <button class="btn btn-primary btn-block">Log In</button>
+            </div>
+          </div>
+          <div class="row mt-2 justify-content-center mb-0">
+            <div class="col-md-12 col-sm-12 col-lg-12  text-center">
+              <h3 class="mb-0">Do not have account yet?</h3>
+              <h3>click <a [routerLink]="['/en/sign-up']">sign up</a></h3>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

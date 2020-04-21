@@ -12,10 +12,11 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
-html,
+//html,
 //body { height: auto; }
+
 body {
-  margin: 0;
+  //margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -52,4 +53,9 @@ mat-card{
 /*Hr*/
 hr{
   background-color: $primary !important;
+}
+
+/*Fa-icon*/
+fa-icon{
+  color: gray;
 }

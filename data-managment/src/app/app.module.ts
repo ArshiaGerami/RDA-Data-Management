@@ -17,12 +17,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NavBarComponent } from './common/nav-bar/nav-bar.component';
 import { SignUpComponent } from './common/sign-up/sign-up.component';
+import { LogInComponent } from './common/log-in/log-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    SignUpComponent
+    SignUpComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
