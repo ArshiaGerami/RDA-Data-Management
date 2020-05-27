@@ -13,9 +13,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 body {
-  //margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  height: 100% !important;
+  // height: 100vh;
 }
 
 .logo{
@@ -25,7 +24,7 @@ body {
 .mainBackground{
   background-color: #006A80;
   background-image: linear-gradient(0deg, #006A80, #00D3FE);
-  height: 100% !important;
+  height: 100vh;
 }
 
 .form-field{
@@ -77,4 +76,10 @@ fa-icon{
   background-color: #006A80;
   background-image: linear-gradient(6deg, #006A80, #00BBE1);
   box-shadow: 0 2px 5px rgba(0, 0, 0 ,0.5);
+}
+
+/*Log In page*/
+.resize{
+  padding-top:7rem;
+  padding-bottom:4rem;
 }

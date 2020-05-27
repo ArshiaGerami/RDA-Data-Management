@@ -26,12 +26,4 @@ export class LogInComponent implements OnInit {
       this.checkPassword = true;
     }
   }
-  temporaryLogin(){
-    if (this.logIn.email === 'admin@rda.com' && this.logIn.password === 'admin@123' ){
-      this.router.navigate(['/en/dashboard']);
-      localStorage.setItem('temporary', 'login');
-    }else{
-      alert('Either email or password is wrong ');
-    }
-  }
 }

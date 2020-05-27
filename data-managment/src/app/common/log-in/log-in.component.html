@@ -1,8 +1,8 @@
-<div class="container-fluid mb-0 pb-0 mainBackground">
-  <div class="row my-5">
+<div class="container-fluid mt-0 mainBackground">
+  <div class="row">
     <div class="col-md-12 col-sm-12 col-lg-12">
       <div class="container">
-        <div class="row my-5">
+        <div class="row resize">
           <div class="col-md-8 col-sm-8 col-lg-8">
             <div class="row">
               <div class="col-md-12 col-sm-12 col-lg-12">
@@ -16,6 +16,7 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-4 col-lg-4">
+            <form #logInForm="ngForm">
             <mat-card>
               <div class="row mt-2">
                 <div class="col-md-12 col-sm-12 col-lg-12">
@@ -48,16 +49,11 @@
               </mat-card-content>
               <div class="row justify-content-center">
                 <div class="col-md-6 col-sm-12 col-lg-4 mt-2">
-                  <button class="btn btn-primary btn-block" (click)="temporaryLogin()">Log In</button>
-                </div>
-              </div>
-              <div class="row mt-2 justify-content-center mb-0">
-                <div class="col-md-12 col-sm-12 col-lg-12  text-center">
-                  <h3 class="mb-0">Do not have account yet?</h3>
-                  <h3>click <a [routerLink]="['/en/sign-up']">sign up</a></h3>
+                  <button class="btn btn-primary btn-block" [disabled]="logInForm.invalid">Log In</button>
                 </div>
               </div>
             </mat-card>
+            </form>
           </div>
         </div>
       </div>
