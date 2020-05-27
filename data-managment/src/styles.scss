@@ -1,21 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
 /*Import Style-variables*/
-
-@import "styles-variables";
+@import 'styles-variables';
 
 /*Import Fonts*/
-
 @import url('https://fonts.googleapis.com/css?family=Helvetica Neue:300,400,500,600,700,800');
 
 /* Import bootStrap*/
+@import '~bootstrap/dist/css/bootstrap.css';
 
-@import "~bootstrap/dist/css/bootstrap.css";
-
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  // height: 100vh;
-}
+/*Import material SCSS*/
+@import 'material-scss.scss';
 
 .logo{
   width:3.5rem;
@@ -76,10 +71,24 @@ fa-icon{
   background-color: #006A80;
   background-image: linear-gradient(6deg, #006A80, #00BBE1);
   box-shadow: 0 2px 5px rgba(0, 0, 0 ,0.5);
+  padding: 0;
+  margin:0;
 }
 
-/*Log In page*/
+/*For all pages*/
 .resize{
   padding-top:7rem;
   padding-bottom:4rem;
+}
+
+/*Dashboard*/
+.dashboard{
+  ul li:hover{
+    cursor: pointer;
+    color:#ffffff;
+  }
+  .nav-link.active{
+    background-color: #ffffff;
+    color:$primary;
+  }
 }

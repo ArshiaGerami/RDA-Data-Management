@@ -1,0 +1,24 @@
+@import 'styles-variables.scss';
+@import 'material-palette.scss';
+$mat-button-border-radius:60px;
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$rda-app-primary: mat-palette($md-rdaBlue);
+$rda-app-accent: mat-palette($md-rdaDarkBlue);
+
+
+//the warn palette is optional (default is red).
+$rda-app-warn: mat-palette($mat-red);
+
+//Create the theme object (a Sass map containing all of the palette).
+$rda-app-theme: mat-light-theme($rda-app-primary, $rda-app-accent, $rda-app-warn);
+
+//Include theme styles for core and each component used in app
+@include angular-material-theme($rda-app-theme);
+$custom-typography: mat-typography-config(
+    $font-family: 'Roboto, Helvetica Neue'
+);
+
+@include mat-core($custom-typography);
