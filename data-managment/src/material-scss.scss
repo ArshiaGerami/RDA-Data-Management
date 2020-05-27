@@ -13,7 +13,11 @@ $rda-app-accent: mat-palette($md-rdaDarkBlue);
 $rda-app-warn: mat-palette($mat-red);
 
 //Create the theme object (a Sass map containing all of the palette).
-$rda-app-theme: mat-light-theme($rda-app-primary, $rda-app-accent, $rda-app-warn);
+$rda-app-theme: mat-light-theme(
+        $rda-app-primary,
+        $rda-app-accent, 
+        $rda-app-warn      
+);
 
 //Include theme styles for core and each component used in app
 @include angular-material-theme($rda-app-theme);

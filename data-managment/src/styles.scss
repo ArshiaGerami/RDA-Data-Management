@@ -10,7 +10,8 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 
 /*Import material SCSS*/
-@import 'material-scss.scss';
+// @import 'material-scss';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .logo{
   width:3.5rem;
@@ -24,6 +25,27 @@
 
 .form-field{
   width: 100%;
+}
+
+/*For btn*/
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: $primary !important;
+  color:#ffffff;
+  border-color: $primary !important;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:visited,
+.btn-secondary:focus {
+  background-color: $secondary !important;
+  color:#ffffff;
+  border-color: $secondary !important;
 }
 
 /*Fonts*/
