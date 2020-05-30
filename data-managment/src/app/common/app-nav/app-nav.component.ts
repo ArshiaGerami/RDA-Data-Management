@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../integration/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-nav',
@@ -7,19 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppNavComponent implements OnInit {
   public userName = 'Michelle';
-  public isLoggedIn = false;
-  constructor() { }
+  public profilePic = '';
+  constructor( 
+    private authenticationService: AuthenticationService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.checkLogin();
-  }
+     }
 
-  checkLogin(){
-    const check = localStorage.getItem('temporary');
-    setTimeout(() => {
-      if (check === 'login'){
-        this.isLoggedIn = true;
-      }
-    }, 500);
-  }
+     logOut(){
+       this.authenticationService.logOut();
+       this.router.navigate(['/en/login']);
+     }
 }

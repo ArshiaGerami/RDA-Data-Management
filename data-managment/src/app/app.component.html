@@ -1,12 +1,9 @@
-<app-nav-bar></app-nav-bar>
-<app-app-nav></app-app-nav>
-<div>
-  <router-outlet></router-outlet>
-</div>
+<app-nav-bar *ngIf="!authenticationService.isUserLoggedIn()"></app-nav-bar>
+<app-app-nav *ngIf="authenticationService.isUserLoggedIn()"></app-app-nav>
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-<!--      <router-outlet></router-outlet>-->
+    <div class="col-md-12 col-sm-12 col-lg-12 ml-0 mr-0 pl-0 pr-0">
+     <router-outlet></router-outlet>
     </div>
   </div>
 </div>

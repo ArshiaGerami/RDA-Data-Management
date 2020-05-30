@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../app/integration/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'data-management';
+  
 
-  constructor() {}
+  constructor(public authenticationService: AuthenticationService) {}
+  loggedIn = this.authenticationService.isUserLoggedIn();
 
   ngOnInit(): void {
   }
 
+  // checkLogIn(){
+  //   if(this.authenticationService.isUserLoggedIn()){
+  //     return  this.loggedIn =true;
+  //   }else {
+  //     return this.loggedIn = false;
+  //   }
+  // }
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://45.77.238.50/',//Developer Server API
+  host: 'http://45.77.238.50:4000/api/v1',//Developer Server API
 };
 
 /*

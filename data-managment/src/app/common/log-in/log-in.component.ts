@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { LoginService } from '../../integration/login/login.service';
+import { AuthenticationService } from '../../integration/authentication/authentication.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-log-in',
@@ -14,16 +17,22 @@ export class LogInComponent implements OnInit {
   public logIn: any = {};
   public checkPassword = true;
 
-  constructor( private router: Router) { }
+  constructor( 
+    private router: Router, 
+    private loginService: LoginService,
+    private authenticationService : AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
   passwordEyes(newValue: boolean){
-    if (this.checkPassword === newValue){
-      this.checkPassword = false;
-    } else{
-      this.checkPassword = true;
-    }
+    this.checkPassword = this.checkPassword !== newValue;
+  }
+  logInUser(){
+      this.authenticationService.authenticate(this.logIn.email, this.logIn.password).pipe(first())
+      .subscribe((data) =>{
+          this.router.navigate(['/en/dashboard']);
+      },
+      );
   }
 }
