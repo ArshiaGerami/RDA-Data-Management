@@ -11,11 +11,11 @@ export class LoginService {
   constructor( private http: HttpClient) { }
 
   //login
-  // userLogin(login: Login) {
-  //   const body: Login = {
-  //     email: login.email,
-  //     password: login.password,
-  //   };
-  //   return this.http.post(environment.host + 'login',body)
-  // }
+  userLogin(login: Login) {
+    const body: Login = {
+      email: login.email,
+      password: login.password,
+    };
+    return this.http.post(environment.host + '/auth/login',body)
+  }
 }

@@ -8,13 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./app-nav.component.scss']
 })
 export class AppNavComponent implements OnInit {
-  public userName = 'Michelle';
+  public userName = '';
   public profilePic = '';
+  public getUser:any=[];
   constructor( 
     private authenticationService: AuthenticationService,
     private router: Router) { }
 
   ngOnInit(): void {
+    const check=localStorage.getItem('user');
+    this.getUser = JSON.parse(check);
+    this.userName = this.getUser.name;
      }
 
      logOut(){

@@ -10,18 +10,21 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 
 /*Import material SCSS*/
-// @import 'material-scss';
+@import 'material-scss';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .logo{
   width:3.5rem;
 }
-
-.mainBackground{
-  background-color: #006A80;
-  background-image: linear-gradient(0deg, #006A80, #00D3FE);
-  height: 100vh;
+body{
+  background-color: #d9dedb;
 }
+
+// .mainBackground{
+//   background-color: #006A80;
+//   background-image: linear-gradient(0deg, #006A80, #00D3FE);
+//   height: 100vh;
+// }
 
 .form-field{
   width: 100%;
@@ -48,6 +51,12 @@
   border-color: $secondary !important;
 }
 
+.matSnackBar{
+  margin-top:5rem !important;
+  background-color: $primary!important;
+  color:#ffffff !important;
+}
+
 /*Fonts*/
 h1{
   color: $primary;
@@ -55,6 +64,9 @@ h1{
 }
 .h1-white{
   color: #ffffff;
+}
+.h1-primary{
+  color:$primary;
 }
 
 .h2-white{
@@ -80,7 +92,7 @@ hr{
 
 /*Fa-icon*/
 fa-icon{
-  color: gray;
+  color: #b1b9ba;
 }
 
 /*Nav-bar*/
@@ -90,11 +102,15 @@ fa-icon{
 
 /*side-nav-bar*/
 .side-nav-bar{
-  background-color: #006A80;
-  background-image: linear-gradient(6deg, #006A80, #00BBE1);
-  box-shadow: 0 2px 5px rgba(0, 0, 0 ,0.5);
+  background-color: #ffffff;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 3px 17px 2px rgba(255, 255, 255, 0.5);
+  height: 100vh;
+  font-weight: 500;
+  font-size: calc(12px + 0.5vw);
   padding: 0;
   margin:0;
+  color: #b1b9ba;
 }
 
 /*For all pages*/
@@ -102,15 +118,22 @@ fa-icon{
   padding-top:7rem;
   padding-bottom:4rem;
 }
+.resize-sid-nav-bar{
+  padding-top:4.5rem;
+}
 
 /*Dashboard*/
 .dashboard{
-  ul li:hover{
+  ul li:hover,fa-icon:hover{
     cursor: pointer;
-    color:#ffffff;
+    color:$primary;
   }
   .nav-link.active{
-    background-color: #ffffff;
-    color:$primary;
+    background-color: $secondary;
+    color:#ffffff;
+    border-radius: 0;
+  }
+  .nav-link.active fa-icon{
+    color:#ffffff;
   }
 }

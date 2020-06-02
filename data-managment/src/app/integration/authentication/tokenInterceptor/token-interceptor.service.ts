@@ -5,7 +5,7 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 import { environment } from '../../../../environments/environment';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Injectable({

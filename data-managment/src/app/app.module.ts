@@ -19,6 +19,11 @@ import { NavBarComponent } from './common/nav-bar/nav-bar.component';
 import { LogInComponent } from './common/log-in/log-in.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { AppNavComponent } from './common/app-nav/app-nav.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
+import { SuperUserDashboardComponent } from './dashboard/super-user-dashboard/super-user-dashboard.component';
+import { UserDashboardComponent } from './dashboard/user-dashboard/user-dashboard.component';
+import { SwitchAccountComponent } from './common/switch-account/switch-account.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +31,11 @@ import { AppNavComponent } from './common/app-nav/app-nav.component';
     NavBarComponent,
     LogInComponent,
     DashboardComponent,
-    AppNavComponent
+    AppNavComponent,
+    AdminDashboardComponent,
+    SuperUserDashboardComponent,
+    UserDashboardComponent,
+    SwitchAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +50,13 @@ import { AppNavComponent } from './common/app-nav/app-nav.component';
     FontAwesomeModule,
     FlexLayoutModule,
     MatInputModule,
+    MatSnackBarModule,
     MatIconModule,
   ],
-  providers: [DatePipe, MatIconRegistry],
+  providers: [
+    DatePipe, 
+    MatIconRegistry,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

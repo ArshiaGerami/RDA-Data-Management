@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import { LoginService } from '../../integration/login/login.service';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../../integration/authentication/authentication.service';
 import { first } from 'rxjs/operators';
+import { MatSnackBar } from'@angular/material/snack-bar';
 
 @Component({
   selector: 'app-log-in',
@@ -16,23 +15,31 @@ export class LogInComponent implements OnInit {
   faEyeSlash = faEyeSlash;
   public logIn: any = {};
   public checkPassword = true;
+  public check:any=[];
 
   constructor( 
-    private router: Router, 
-    private loginService: LoginService,
-    private authenticationService : AuthenticationService) { }
+    private authenticationService : AuthenticationService,
+    private matSnackBar : MatSnackBar) { }
+
+    openSnackBar(message:string, action:string){
+      this.matSnackBar.open(message, action,{
+        duration:5000,
+        verticalPosition:"top",
+        panelClass:['matSnackBar']
+      });
+    }
 
   ngOnInit(): void {
   }
-
   passwordEyes(newValue: boolean){
     this.checkPassword = this.checkPassword !== newValue;
   }
   logInUser(){
       this.authenticationService.authenticate(this.logIn.email, this.logIn.password).pipe(first())
-      .subscribe((data) =>{
-          this.router.navigate(['/en/dashboard']);
-      },
+      .subscribe(data =>{
+      }, error =>{
+        this.openSnackBar('Either username or password is wrong','');
+      } 
       );
   }
 }
