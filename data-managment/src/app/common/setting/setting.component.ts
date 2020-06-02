@@ -11,7 +11,7 @@ export class SettingComponent implements OnInit {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   public checkPassword = true;
-  public checkConfrimPassword =true;
+  public checkConfirmPassword =true;
   public checkCurrentPassword = true;
   public dashboard= '';
   public change:any={};
@@ -27,7 +27,7 @@ export class SettingComponent implements OnInit {
     this.checkPassword = this.checkPassword !== newValue;
   }
   confirmPasswordEye(newValue:boolean){
-    this.checkConfrimPassword = this.checkConfrimPassword !==newValue;
+    this.checkConfirmPassword = this.checkConfirmPassword !==newValue;
   }
   currentPasswordEye(newValue:boolean){
     this.checkCurrentPassword = this.checkCurrentPassword !==newValue;

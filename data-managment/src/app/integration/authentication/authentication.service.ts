@@ -45,16 +45,12 @@ export class AuthenticationService {
                 this.userInfo = userInfo.user;
                 if(this.userInfo.role === 0){
                   localStorage.setItem('currentUser', 'super-admin');
-                  localStorage.setItem('dashboard', '/en/super-admin/dashboard');
                 }else if(this.userInfo.role === 1){
                   localStorage.setItem('currentUser', 'admin');
-                  localStorage.setItem('dashboard', '/en/admin/dashboard');
                 }else if(this.userInfo.role === 2){
                   localStorage.setItem('currentUser', 'super-user');
-                  localStorage.setItem('dashboard', '/en/super-user/dashboard');
                 }else{
                   localStorage.setItem('currentUser', 'user')
-                  localStorage.setItem('dashboard', '/en/user/dashboard');
                 }
                 this.relations = JSON.stringify(this.userInfo.relations);
                 localStorage.setItem('relations', this.relations);
@@ -73,15 +69,19 @@ export class AuthenticationService {
                   const check = this.userInfo.relations[i];
                   if(check.role === 0){
                     this.router.navigate(['/en/super-admin/dashboard']);
+                    localStorage.setItem('dashboard', '/en/super-admin/dashboard');
                   }
                   if(check.role === 1){
                     this.router.navigate(['/en/admin/dashboard']);
+                    localStorage.setItem('dashboard', '/en/admin/dashboard');
                   }
                   if (check.role === 2){
                     this.router.navigate(['/en/super-user/dashboard']);
+                    localStorage.setItem('dashboard', '/en/super-user/dashboard');
                   }
                    if(check.role === 3){
                     this.router.navigate(['/en/user/dashboard']);
+                    localStorage.setItem('dashboard', '/en/user/dashboard');
                   }
               }
             }

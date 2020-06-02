@@ -10,6 +10,7 @@ import { UserDashboardComponent } from './dashboard/user-dashboard/user-dashboar
 import { SwitchAccountComponent } from './common/switch-account/switch-account.component'
 import { ProfileComponent } from './common/profile/profile.component';
 import { SettingComponent } from './common/setting/setting.component';
+import { ErrorMessageComponent } from './common/error-message/error-message.component';
 const routes: Routes = [
   {
     path: 'en/login',
@@ -56,6 +57,10 @@ const routes: Routes = [
     component: SettingComponent,
     canActivate:[RoleGuard],
     data:{expectedRole:[Role.user, Role.admin, Role.superUser, Role.superAdmin]}
+  },
+  {
+    path:'*',
+    component: ErrorMessageComponent,
   }
 ];
 

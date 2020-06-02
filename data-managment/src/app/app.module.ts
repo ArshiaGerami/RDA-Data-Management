@@ -26,6 +26,8 @@ import { UserDashboardComponent } from './dashboard/user-dashboard/user-dashboar
 import { SwitchAccountComponent } from './common/switch-account/switch-account.component';
 import { ProfileComponent } from './common/profile/profile.component';
 import { SettingComponent } from './common/setting/setting.component'
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { ErrorMessageComponent } from './common/error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { SettingComponent } from './common/setting/setting.component'
     SwitchAccountComponent,
     ProfileComponent,
     SettingComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { SettingComponent } from './common/setting/setting.component'
     FlexLayoutModule,
     MatInputModule,
     MatSnackBarModule,
+    MatPasswordStrengthModule,
     MatIconModule,
   ],
   providers: [

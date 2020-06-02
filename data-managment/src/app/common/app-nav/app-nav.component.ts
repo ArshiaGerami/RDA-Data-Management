@@ -12,12 +12,16 @@ export class AppNavComponent implements OnInit {
   public profilePic = '';
   public getUser:any=[];
   public dashboard = '';
+  
   constructor( 
     private authenticationService: AuthenticationService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.dashboard = localStorage.getItem('dashboard')
+    if(!this.dashboard){
+      this.dashboard ='/en/switch-account'
+    }
     const check=localStorage.getItem('user');
     this.getUser = JSON.parse(check);
     this.userName = this.getUser.name;

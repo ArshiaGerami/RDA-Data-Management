@@ -38,21 +38,24 @@
                                         [(ngModel)]="change.confirmPassword" validateEqual="newPassword" required />
                                     <mat-icon matSuffix (click)="confirmPasswordEye(true)">
                                         <fa-icon [icon]="faEye" size="xs" [hidden]="!checkConfirmPassword"></fa-icon>
-                                        <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkConfirmPassword">
-                                        </fa-icon>
+                                        <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkConfirmPassword"></fa-icon>
                                     </mat-icon>
                                     <mat-error *ngIf="confrimPassword.invalid">
                                         <mat-error ng-show="confirmPassword.errors.required">
-                                            Please enter password, example:@Rda2020
+                                            Confirm password and password did not match
                                         </mat-error>
                                     </mat-error>
                                 </mat-form-field>
+                                <div *ngIf="newPassword.dirty">
+                                    <mat-password-strength #passwordStrength [password]="newPassword.value"></mat-password-strength>
+                                    <mat-password-strength-info [passwordComponent]="passwordStrength"></mat-password-strength-info>
+                                </div>
                             </mat-card-content>
                             <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-5 col-sm-12">
+                                <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
                                     <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancel</button>
                                 </div>
-                                <div class="col-md-6 col-lg-5 col-sm-12">
+                                <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
                                     <button class="btn btn-primary btn-block"[disabled]="changePassword.invalid">Change Password</button>
                                 </div>
                             </div>
