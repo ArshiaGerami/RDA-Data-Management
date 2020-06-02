@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row resize">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-sm-12">
+                    <mat-card>
+                        <form #changePassword="ngForm">
+                            <h1 class="mb-0">Change Password</h1>
+                            <hr class="mt-0">
+                            <mat-card-content>
+                                <mat-form-field class="form-field">
+                                    <mat-label>Current Password</mat-label>
+                                    <input matInput [type]="checkCurrentPassword ? 'password': 'text'" name="currentPassword"
+                                        placeholder="********" minlength="8" maxlength="255"
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #currentPassword="ngModel"
+                                        [(ngModel)]="change.currentPassword" required />
+                                    <mat-icon matSuffix (click)="currentPasswordEye(true)">
+                                        <fa-icon [icon]="faEye" size="xs" [hidden]="!checkCurrentPassword"></fa-icon>
+                                        <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkCurrentPassword"></fa-icon>
+                                    </mat-icon>
+                                </mat-form-field>
+                                <mat-form-field class="form-field">
+                                    <mat-label>New Password</mat-label>
+                                    <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
+                                        placeholder="********" minlength="8" maxlength="255"
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #newPassword="ngModel"
+                                        [(ngModel)]="change.password" validateEqual="currentPassword" reverse="true" required />
+                                    <mat-icon matSuffix (click)="passwordEyes(true)">
+                                        <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
+                                        <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
+                                    </mat-icon>
+                                </mat-form-field>
+                                <mat-form-field class="form-field">
+                                    <mat-label>Confirm New Password</mat-label>
+                                    <input matInput [type]="checkConfirmPassword ? 'password': 'text'"
+                                        name="confirmPassword" placeholder="********" minlength="8" maxlength="255"
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #confrimPassword="ngModel"
+                                        [(ngModel)]="change.confirmPassword" validateEqual="newPassword" required />
+                                    <mat-icon matSuffix (click)="confirmPasswordEye(true)">
+                                        <fa-icon [icon]="faEye" size="xs" [hidden]="!checkConfirmPassword"></fa-icon>
+                                        <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkConfirmPassword">
+                                        </fa-icon>
+                                    </mat-icon>
+                                    <mat-error *ngIf="confrimPassword.invalid">
+                                        <mat-error ng-show="confirmPassword.errors.required">
+                                            Please enter password, example:@Rda2020
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-card-content>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-5 col-sm-12">
+                                    <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancel</button>
+                                </div>
+                                <div class="col-md-6 col-lg-5 col-sm-12">
+                                    <button class="btn btn-primary btn-block"[disabled]="changePassword.invalid">Change Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

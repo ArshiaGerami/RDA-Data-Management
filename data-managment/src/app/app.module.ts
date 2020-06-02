@@ -23,7 +23,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { SuperUserDashboardComponent } from './dashboard/super-user-dashboard/super-user-dashboard.component';
 import { UserDashboardComponent } from './dashboard/user-dashboard/user-dashboard.component';
-import { SwitchAccountComponent } from './common/switch-account/switch-account.component'
+import { SwitchAccountComponent } from './common/switch-account/switch-account.component';
+import { ProfileComponent } from './common/profile/profile.component';
+import { SettingComponent } from './common/setting/setting.component'
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { SwitchAccountComponent } from './common/switch-account/switch-account.c
     SuperUserDashboardComponent,
     UserDashboardComponent,
     SwitchAccountComponent,
+    ProfileComponent,
+    SettingComponent,
   ],
   imports: [
     BrowserModule,

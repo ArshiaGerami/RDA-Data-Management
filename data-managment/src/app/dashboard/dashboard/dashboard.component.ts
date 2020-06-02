@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { 
-  faTachometerAlt, 
+  faChartLine, 
   faUsers, 
-  faLayerGroup, faSortAmountDownAlt} from '@fortawesome/free-solid-svg-icons';
+  faLayerGroup,} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +10,9 @@ import {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  faTachometerAlt =faTachometerAlt;
+  faChartLine =faChartLine;
   faUsers = faUsers;
   faLayerGroup = faLayerGroup;
-  faSortAmountDownAlt = faSortAmountDownAlt;
 
   constructor() { }
 

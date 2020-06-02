@@ -8,6 +8,8 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashb
 import { SuperUserDashboardComponent } from './dashboard/super-user-dashboard/super-user-dashboard.component';
 import { UserDashboardComponent } from './dashboard/user-dashboard/user-dashboard.component'
 import { SwitchAccountComponent } from './common/switch-account/switch-account.component'
+import { ProfileComponent } from './common/profile/profile.component';
+import { SettingComponent } from './common/setting/setting.component';
 const routes: Routes = [
   {
     path: 'en/login',
@@ -42,6 +44,18 @@ const routes: Routes = [
     component: SwitchAccountComponent,
     canActivate:[RoleGuard],
     data:{expectedRole:[Role.user, Role.admin, Role.superUser]}
+  },
+  {
+    path:'en/profile',
+    component: ProfileComponent,
+    canActivate:[RoleGuard],
+    data:{expectedRole:[Role.admin, Role.superAdmin,Role.superUser, Role.user]}
+  },
+  {
+    path:'en/setting',
+    component: SettingComponent,
+    canActivate:[RoleGuard],
+    data:{expectedRole:[Role.user, Role.admin, Role.superUser, Role.superAdmin]}
   }
 ];
 

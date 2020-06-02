@@ -11,11 +11,13 @@ export class AppNavComponent implements OnInit {
   public userName = '';
   public profilePic = '';
   public getUser:any=[];
+  public dashboard = '';
   constructor( 
     private authenticationService: AuthenticationService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.dashboard = localStorage.getItem('dashboard')
     const check=localStorage.getItem('user');
     this.getUser = JSON.parse(check);
     this.userName = this.getUser.name;

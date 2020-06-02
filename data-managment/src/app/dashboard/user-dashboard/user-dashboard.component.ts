@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { 
+  faChartLine, 
+  faMap, 
+  faLayerGroup,
+  faSortAmountDownAlt,
+  faProjectDiagram,} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -6,6 +12,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
+
+  faChartLine =faChartLine;
+  faMap = faMap;
+  faLayerGroup = faLayerGroup;
+  faSortAmountDownAlt = faSortAmountDownAlt;
+  faProjectDiagram = faProjectDiagram
 
   constructor() { }
 

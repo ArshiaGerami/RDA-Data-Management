@@ -45,12 +45,16 @@ export class AuthenticationService {
                 this.userInfo = userInfo.user;
                 if(this.userInfo.role === 0){
                   localStorage.setItem('currentUser', 'super-admin');
+                  localStorage.setItem('dashboard', '/en/super-admin/dashboard');
                 }else if(this.userInfo.role === 1){
                   localStorage.setItem('currentUser', 'admin');
+                  localStorage.setItem('dashboard', '/en/admin/dashboard');
                 }else if(this.userInfo.role === 2){
                   localStorage.setItem('currentUser', 'super-user');
+                  localStorage.setItem('dashboard', '/en/super-user/dashboard');
                 }else{
                   localStorage.setItem('currentUser', 'user')
+                  localStorage.setItem('dashboard', '/en/user/dashboard');
                 }
                 this.relations = JSON.stringify(this.userInfo.relations);
                 localStorage.setItem('relations', this.relations);
