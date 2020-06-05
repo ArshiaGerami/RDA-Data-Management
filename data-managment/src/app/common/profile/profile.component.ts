@@ -3,8 +3,6 @@ import { LoginService }from '../../integration/login/login.service';
 import { FileUploadService } from '../../integration/fileUpload/file-upload.service';
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common';
-import { environment } from '../../../environments/environment';
 
 
 @Component({
