@@ -18,6 +18,11 @@
                                         <fa-icon [icon]="faEye" size="xs" [hidden]="!checkCurrentPassword"></fa-icon>
                                         <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkCurrentPassword"></fa-icon>
                                     </mat-icon>
+                                    <mat-error *ngIf="currentPassword.invalid">
+                                        <mat-error ng-show="currentPassword.errors.required">
+                                            Please fill up this field
+                                        </mat-error>
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="form-field">
                                     <mat-label>New Password</mat-label>
@@ -29,6 +34,11 @@
                                         <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
                                         <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
                                     </mat-icon>
+                                    <mat-error *ngIf="newPassword.invalid">
+                                        <mat-error ng-show="newPassword.errors.required">
+                                            Please fill up this field
+                                        </mat-error>
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field class="form-field">
                                     <mat-label>Confirm New Password</mat-label>
@@ -42,11 +52,11 @@
                                     </mat-icon>
                                     <mat-error *ngIf="confrimPassword.invalid">
                                         <mat-error ng-show="confirmPassword.errors.required">
-                                            Confirm password and password did not match
+                                            Please fill up this field
                                         </mat-error>
                                     </mat-error>
                                 </mat-form-field>
-                                <div *ngIf="newPassword.dirty">
+                                <div *ngIf="newPassword.dirty" class="mt-2">
                                     <mat-password-strength #passwordStrength [password]="newPassword.value"></mat-password-strength>
                                     <mat-password-strength-info [passwordComponent]="passwordStrength"></mat-password-strength-info>
                                 </div>
@@ -56,7 +66,8 @@
                                     <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancel</button>
                                 </div>
                                 <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
-                                    <button class="btn btn-primary btn-block"[disabled]="changePassword.invalid">Change Password</button>
+                                    <button class="btn btn-primary btn-block"[disabled]="changePassword.invalid"
+                                     (click)="changePasswordButton()">Change Password</button>
                                 </div>
                             </div>
                         </form>

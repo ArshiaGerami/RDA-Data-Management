@@ -1,21 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
 import { Login } from './login.model';
+
+export interface JWT {
+  token: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor( private http: HttpClient) { }
+  constructor(
+    private http: HttpClient) {}
 
   //login
-  userLogin(login: Login) {
+  userInfromation(login: Login, setHeaders) {
     const body: Login = {
+      id: login.id,
+      name: login.name,
       email: login.email,
-      password: login.password,
-    };
-    return this.http.post(environment.host + '/auth/login',body)
+      avatar: login.avatar,
+      status: login.status,
+    }
+    return this.http.put(environment.host + '/user/update', body, setHeaders)
   }
 }

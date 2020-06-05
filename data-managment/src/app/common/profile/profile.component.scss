@@ -1,0 +1,44 @@
+#profileImage{
+    text-align: center;
+    align-content: center;
+    margin: auto;
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+}
+#profileImage img{
+    position: relative;
+    width:100%;
+    height:100%;
+    border:2px solid #006A80;
+    object-fit: cover;
+    border-radius: 50%;
+}
+#imageFileChooser{
+    position: absolute;
+    opacity: 100;
+    width: 100px;
+    height: 100px;
+}
+#imageFileChooser input[type=file]{
+    position: absolute;
+    width: 88px;
+    height: auto;
+    border-radius: 50%;
+    z-index: 1;
+    margin-top: px;
+    margin-top: -93px;
+    margin-left: -43px;
+    opacity: 0;
+    line-height: 5rem;
+}
+.profileDetail ul{
+ list-style-type: none;
+}
+.profileDetail li{
+    background-color: #b1b9ba;
+    color: #006A80;
+    margin:15px;
+    padding: 0.5rem;
+    word-wrap: break-word;;
+}

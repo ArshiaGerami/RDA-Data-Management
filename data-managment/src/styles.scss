@@ -125,6 +125,12 @@ fa-icon{
   margin:0;
   color: #b1b9ba;
 }
+@media (max-width: 767.98px) {
+  .side-nav-bar{
+    position: relative;
+    height: auto;
+  }
+}
 
 /*For all pages*/
 .resize{
@@ -149,4 +155,7 @@ fa-icon{
   .nav-link.active fa-icon{
     color:#ffffff;
   }
+  .border-right{
+    border-right: 2px solid $secondary !important;
+}
 }

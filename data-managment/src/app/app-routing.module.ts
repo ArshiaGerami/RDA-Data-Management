@@ -17,25 +17,25 @@ const routes: Routes = [
     component: LogInComponent,
   },
   {
-    path: 'en/super-admin/dashboard',
+    path: 'en/:username/super-admin/dashboard',
     component: DashboardComponent,
     canActivate: [RoleGuard],
     data:{expectedRole:[Role.superAdmin]}
   },
   {
-    path: 'en/admin/dashboard',
+    path: 'en/admin/:username/dashboard',
     component: AdminDashboardComponent,
     canActivate: [RoleGuard],
     data:{expectedRole:[Role.admin]}
   },
   {
-    path:'en/super-user/dashboard',
+    path:'en/super-user/dashboard/:username',
     component: SuperUserDashboardComponent,
     canActivate:[RoleGuard],
     data:{expectedRole:[Role.superUser]}
   },
   {
-    path:'en/user/dashboard',
+    path:'en/:username/user/dashboard',
     component: UserDashboardComponent,
     canActivate:[RoleGuard],
     data:{expectedRole:[Role.user]}
@@ -59,8 +59,10 @@ const routes: Routes = [
     data:{expectedRole:[Role.user, Role.admin, Role.superUser, Role.superAdmin]}
   },
   {
-    path:'*',
+    path:'**',
     component: ErrorMessageComponent,
+    canActivate:[RoleGuard],
+    data:{expectedRole:[Role.admin, Role.user, Role.superUser, Role.superAdmin]}
   }
 ];
 

@@ -18,6 +18,8 @@ export class AuthenticationService {
   public currentUser: any ="";
   public userInfo: any =[];
   public relations: any=[];
+  public userName = '';
+  public getUser:any=[];
 
   constructor( 
     private router: Router,
@@ -67,21 +69,24 @@ export class AuthenticationService {
             else{
               for(let i=0; i< this.userInfo.relations.length; i++){
                   const check = this.userInfo.relations[i];
+                  const checkUser=localStorage.getItem('user');
+                  this.getUser = JSON.parse(checkUser);
+                  this.userName = this.getUser.name;
                   if(check.role === 0){
-                    this.router.navigate(['/en/super-admin/dashboard']);
-                    localStorage.setItem('dashboard', '/en/super-admin/dashboard');
+                    this.router.navigate(['/en/'+this.userName+'/super-admin/dashboard']);
+                    localStorage.setItem('dashboard', '/en/'+this.userName+'/super-admin/dashboard');
                   }
                   if(check.role === 1){
-                    this.router.navigate(['/en/admin/dashboard']);
-                    localStorage.setItem('dashboard', '/en/admin/dashboard');
+                    this.router.navigate(['/en/admin/'+this.userName+'/dashboard']);
+                    localStorage.setItem('dashboard', '/en/admin/'+this.userName+'/dashboard');
                   }
                   if (check.role === 2){
-                    this.router.navigate(['/en/super-user/dashboard']);
-                    localStorage.setItem('dashboard', '/en/super-user/dashboard');
+                    this.router.navigate(['/en/super-user/dashboard/'+this.userName]);
+                    localStorage.setItem('dashboard', '/en/super-user/dashboard/'+this.userName);
                   }
                    if(check.role === 3){
-                    this.router.navigate(['/en/user/dashboard']);
-                    localStorage.setItem('dashboard', '/en/user/dashboard');
+                    this.router.navigate(['/en/'+this.userName+'/user/dashboard']);
+                    localStorage.setItem('dashboard', '/en/'+this.userName+'/user/dashboard');
                   }
               }
             }

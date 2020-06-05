@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-message',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./error-message.component.scss']
 })
 export class ErrorMessageComponent implements OnInit {
-
-  constructor() { }
+  public dashboard ='';
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
+    this.dashboard=localStorage.getItem('dashboard');
   }
+  goToDashboard(){
+    this.route.navigate([this.dashboard]);
+  }
+
 
 }
