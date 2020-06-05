@@ -17,6 +17,7 @@ export class LoginService {
 
   //login
   userInfromation(login: Login, setHeaders) {
+    console.log(setHeaders)
     const body: Login = {
       id: login.id,
       name: login.name,

@@ -58,6 +58,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         const token_parts = localStorage.getItem('jwt-token').split(/\./);
         const token_decoded = JSON.parse(window.atob(token_parts[1]));
         var current_time = Date.now().valueOf() / 1000;
+        console.log(current_time);
         return (current_time > token_decoded.exp)
       } catch{
         let authService = this.injector.get(AuthenticationService);
