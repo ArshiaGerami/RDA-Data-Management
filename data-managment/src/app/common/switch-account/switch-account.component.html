@@ -1,69 +1,70 @@
-<div class="container-fluid">
+<div class="container-fluid mainBackground">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="row resize">
-                <div class="col-md-12 col-sm-12 col-lg-12">
-                    <mat-card>
-                        <mat-card-content>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-lg-12">
-                                    <h1>Which role would you like to continue?</h1>
-                                </div>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-md-4 col-sm-4 col-lg-4 mt-3" *ngFor="let role of relation">
-                                    <mat-card class="mat-card-custom" *ngIf="role.role ===0">
-                                        <a (click)="gotoAccount('superAdmin')">
-                                        <mat-card-header>
-                                            <mat-card-title>
-                                                <span>Super Admin</span>
-                                            </mat-card-title>
-                                            <mat-card-subtitle>
-                                                <p>{{role.group.title}}</p>
-                                            </mat-card-subtitle>
-                                        </mat-card-header>
-                                        </a>
-                                    </mat-card>
-                                    <mat-card class="mat-card-custom" *ngIf="role.role ===1">
-                                        <a (click)="gotoAccount('admin')">
-                                        <mat-card-header>
-                                            <mat-card-title>
-                                                <span>Admin</span>
-                                            </mat-card-title>
-                                            <mat-card-subtitle>
-                                                <p>{{role.group.title}}</p>
-                                            </mat-card-subtitle>
-                                        </mat-card-header>
-                                        </a>
-                                    </mat-card>
-                                    <mat-card class="mat-card-custom" *ngIf="role.role ===2">
-                                        <a (click)="gotoAccount('superUser')">
-                                        <mat-card-header>
-                                            <mat-card-title>
-                                                <span>Super User</span>
-                                            </mat-card-title>
-                                            <mat-card-subtitle>
-                                                <p>{{role.group.title}}</p>
-                                            </mat-card-subtitle>
-                                        </mat-card-header>
-                                        </a>
-                                    </mat-card>
-                                    <mat-card class="mat-card-custom" *ngIf="role.role ===3">
-                                        <a (click)="gotoAccount('user')">
-                                        <mat-card-header>
-                                            <mat-card-title>
-                                                <span>User</span>
-                                            </mat-card-title>
-                                            <mat-card-subtitle>
-                                                <p>{{role.group.title}}</p>
-                                            </mat-card-subtitle>
-                                        </mat-card-header>
-                                        </a>
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
+                <div class="col-md-1 col-sm-3 col-lg-3">
+                    <div>
+                        <img src="../../../assets/images/switch.png">
+                    </div>
+                </div>
+                <div class="col-md-9 col-lg-8 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <h1 class="h1-white">Which role would you like to continue as?</h1>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4 col-sm-4 col-lg-4 mt-3" *ngFor="let role of relation">
+                            <mat-card class="mat-card-custom" *ngIf="role.role ===0">
+                                <a (click)="gotoAccount('superAdmin')">
+                                    <mat-card-header>
+                                        <mat-card-title>
+                                            <span>Super Admin</span>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                            <p>{{role.group.title}}</p>
+                                        </mat-card-subtitle>
+                                    </mat-card-header>
+                                </a>
+                            </mat-card>
+                            <mat-card class="mat-card-custom" *ngIf="role.role ===1">
+                                <a (click)="gotoAccount('admin')">
+                                    <mat-card-header>
+                                        <mat-card-title>
+                                            <span>Admin</span>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                            <p>{{role.group.title}}</p>
+                                        </mat-card-subtitle>
+                                    </mat-card-header>
+                                </a>
+                            </mat-card>
+                            <mat-card class="mat-card-custom" *ngIf="role.role ===2">
+                                <a (click)="gotoAccount('superUser')">
+                                    <mat-card-header>
+                                        <mat-card-title>
+                                            <span>Super User</span>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                            <p>{{role.group.title}}</p>
+                                        </mat-card-subtitle>
+                                    </mat-card-header>
+                                </a>
+                            </mat-card>
+                            <mat-card class="mat-card-custom" *ngIf="role.role ===3">
+                                <a (click)="gotoAccount('user')">
+                                    <mat-card-header>
+                                        <mat-card-title>
+                                            <span>User</span>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>
+                                            <p>{{role.group.title}}</p>
+                                        </mat-card-subtitle>
+                                    </mat-card-header>
+                                </a>
+                            </mat-card>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
