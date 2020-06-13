@@ -159,4 +159,30 @@ fa-icon{
   .border-right{
     border-right: 2px solid $secondary !important;
 }
+.group{
+  fa-icon{
+    color:$primary;
+  }
+  .fa-icon-delete{
+    color:red;
+  }
+}
+button{
+  float: right;
+}
+}
+.search{
+  font-size: 14px;
+  width: 100%;
+}
+.responsive_table{
+width:100%;
+}
+table{
+  width:100%;
+}
+@media(max-width:800px){
+  .responsive_table{
+    overflow-x: auto !important ;
+  }
 }

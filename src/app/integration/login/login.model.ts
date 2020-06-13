@@ -5,3 +5,10 @@ export class Login {
     email:string;
     status:boolean;
 }
+export class Group{
+    page:number;
+    per_page:number;
+}
+export class DeleteGroup{
+    id:string;
+}

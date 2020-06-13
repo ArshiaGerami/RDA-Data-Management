@@ -53,21 +53,25 @@ export class FileUploadService {
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/'+name+'/super-admin/dashboard']);
       localStorage.setItem('dashboard', '/en/'+name+'/super-admin/dashboard');
+      localStorage.setItem('login','true');
       }
     }else if(any === 'admin'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/admin/'+name+'/dashboard']);
       localStorage.setItem('dashboard', '/en/admin/'+name+'/dashboard');
+      localStorage.setItem('login','true');
       }
     }else if(any === 'superUser'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/super-user/dashboard/'+name]);
       localStorage.setItem('dashboard', '/en/super-user/dashboard/'+name);
+      localStorage.setItem('login','true');
       }
     }else if(any === 'user'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/'+name+'/user/dashboard']);
       localStorage.setItem('dashboard', '/en/'+name+'/user/dashboard');
+      localStorage.setItem('login','true');
       }
     }
     this.openSnackBar('You are login as ' + any,'');

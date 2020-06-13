@@ -28,6 +28,12 @@ import { ProfileComponent } from './common/profile/profile.component';
 import { SettingComponent } from './common/setting/setting.component'
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { ErrorMessageComponent } from './common/error-message/error-message.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { DeleteGroupComponent } from './dashboard/dashboard/delete-group/delete-group.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddGroupComponent } from './dashboard/dashboard/add-group/add-group.component';
+import { AddNewUserComponent } from './dashboard/dashboard/add-new-user/add-new-user.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +49,9 @@ import { ErrorMessageComponent } from './common/error-message/error-message.comp
     ProfileComponent,
     SettingComponent,
     ErrorMessageComponent,
+    DeleteGroupComponent,
+    AddGroupComponent,
+    AddNewUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,11 +68,19 @@ import { ErrorMessageComponent } from './common/error-message/error-message.comp
     MatInputModule,
     MatSnackBarModule,
     MatPasswordStrengthModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     DatePipe, 
     MatIconRegistry,
+    AddGroupComponent
+  ],
+  exports:[AppRoutingModule],
+  entryComponents:[
+    DeleteGroupComponent,
   ],
   bootstrap: [AppComponent]
 })

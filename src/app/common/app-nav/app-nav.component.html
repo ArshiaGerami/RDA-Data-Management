@@ -3,7 +3,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <span *ngIf="showRoles">
+  <span *ngIf="showRoles && isUserlogedIn">
   <ul class="custom-ul" *ngFor="let role of relation">
     <li (click)="switch('superAdmi')" *ngIf="role.role ===0">Super Admin</li>
     <li (click)="switch('admin')" *ngIf="role.role ===1">Admin</li>
@@ -24,10 +24,10 @@
         </a>
       </a>
       <div class="dropdown-menu dropdown-menu-right changeHover" aria-labelledby="navBarDropDown">
-        <a class="dropdown-item" routerLink="/en/profile" routerLinkActive="on">Profile</a>
-        <div class="dropdown-divider"></div> 
-        <a class="dropdown-item" routerLink="/en/setting" routerLinkActive="on">Change Password</a>
-        <div class="dropdown-divider"></div>
+        <a *ngIf="isUserlogedIn" class="dropdown-item" routerLink="/en/profile" routerLinkActive="on">Profile</a>
+        <div *ngIf="isUserlogedIn" class="dropdown-divider"></div> 
+        <a *ngIf="isUserlogedIn" class="dropdown-item" routerLink="/en/setting" routerLinkActive="on">Change Password</a>
+        <div *ngIf="isUserlogedIn" class="dropdown-divider"></div>
         <a class="dropdown-item" routerLink="/" (click)="logOut()">LogOut</a>
       </div>
       </li>

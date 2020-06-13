@@ -75,18 +75,22 @@ export class AuthenticationService {
                   if(check.role === 0){
                     this.router.navigate(['/en/'+this.userName+'/super-admin/dashboard']);
                     localStorage.setItem('dashboard', '/en/'+this.userName+'/super-admin/dashboard');
+                    localStorage.setItem('login','true');
                   }
                   if(check.role === 1){
                     this.router.navigate(['/en/admin/'+this.userName+'/dashboard']);
                     localStorage.setItem('dashboard', '/en/admin/'+this.userName+'/dashboard');
+                    localStorage.setItem('login','true');
                   }
                   if (check.role === 2){
                     this.router.navigate(['/en/super-user/dashboard/'+this.userName]);
                     localStorage.setItem('dashboard', '/en/super-user/dashboard/'+this.userName);
+                    localStorage.setItem('login','true');
                   }
                    if(check.role === 3){
                     this.router.navigate(['/en/'+this.userName+'/user/dashboard']);
                     localStorage.setItem('dashboard', '/en/'+this.userName+'/user/dashboard');
+                    localStorage.setItem('login','true');
                   }
               }
             }
