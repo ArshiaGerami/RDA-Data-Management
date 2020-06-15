@@ -1,7 +1,7 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
-import { Login, Group, DeleteGroup } from './login.model';
+import { Login, Group, GroupDisable, CreateGroup } from './login.model';
 
 export interface JWT {
   token: string;
@@ -52,5 +52,17 @@ export class LoginService {
         per_page: group.per_page
       }
     return this.http.post(environment.host + '/user/get', body, setHeaders)
+  }
+  addGroup(createGroup: CreateGroup, setHeaders){
+    const body: CreateGroup ={
+      item: createGroup.item,
+    }
+    return this.http.post(environment.host + '/group/create',body, setHeaders);
+  }
+  disableGroup(groupDisable : GroupDisable, setHeaders){
+    const body: GroupDisable ={
+      id: groupDisable.id,
+    }
+    return this.http.put(environment.host + '/user/changeStatus',body , setHeaders)
   }
 }

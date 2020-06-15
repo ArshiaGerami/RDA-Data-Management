@@ -9,6 +9,12 @@ export class Group{
     page:number;
     per_page:number;
 }
-export class DeleteGroup{
+export class Item{
+    title:string
+}
+export class CreateGroup{
+ item = Item;
+}
+export class GroupDisable{
     id:string;
 }

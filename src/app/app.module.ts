@@ -34,6 +34,7 @@ import { DeleteGroupComponent } from './dashboard/dashboard/delete-group/delete-
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddGroupComponent } from './dashboard/dashboard/add-group/add-group.component';
 import { AddNewUserComponent } from './dashboard/dashboard/add-new-user/add-new-user.component';
+import { DisableGroupComponent } from './dashboard/dashboard/disable-group/disable-group.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AddNewUserComponent } from './dashboard/dashboard/add-new-user/add-new-
     DeleteGroupComponent,
     AddGroupComponent,
     AddNewUserComponent,
+    DisableGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { AddNewUserComponent } from './dashboard/dashboard/add-new-user/add-new-
   providers: [
     DatePipe, 
     MatIconRegistry,
-    AddGroupComponent
+    AddGroupComponent,
+    DisableGroupComponent
   ],
   exports:[AppRoutingModule],
   entryComponents:[

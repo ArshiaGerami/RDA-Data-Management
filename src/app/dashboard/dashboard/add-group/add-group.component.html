@@ -1,1 +1,28 @@
-<p>add-group works!</p>
+<div class="row">
+    <div class="col-md-12 col-ms-12 col-lg-12">
+        <div class="row">
+            <div class="col-12">
+                <form #addGroup="ngForm">
+             <div class="row">
+                 <div class="col-12">
+                <h1 class="mb-0">Add Group</h1>
+                <hr class="mt-0">
+                <mat-form-field class="form-field">
+                    <mat-label>Group Name</mat-label>
+                    <input matInput required name="groupName" [(ngModel)]="groupName.title">
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                    <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                    <button class="btn btn-primary btn-block" [disabled]="addGroup.invalid" (click)="create()">Create</button>
+                </div>
+            </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

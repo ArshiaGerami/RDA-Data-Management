@@ -7,6 +7,8 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class AddGroupComponent implements OnInit {
 
+  public groupName:any={};
+
   constructor(
     public dialogRef: MatDialogRef<AddGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data:any
@@ -14,5 +16,10 @@ export class AddGroupComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  cancel(){
+    this.dialogRef.close('no');
+  }
+  create(){
+    this.dialogRef.close(this.groupName);
+  }
 }

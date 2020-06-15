@@ -5,13 +5,13 @@ import { isPlatformBrowser } from'@angular/common';
 import { MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition, } from'@angular/material/snack-bar';
-
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
-
+  public token='';
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
@@ -75,5 +75,14 @@ export class FileUploadService {
       }
     }
     this.openSnackBar('You are login as ' + any,'');
+  }
+  addAutherization(){
+    this.token = localStorage.getItem('jwt-token');
+    const headers = new HttpHeaders().set('Authorization', this.token).set('x-access-token', this.token)
+    .set('X-Requested-With','XMLHttpRequest')
+    const setHeaders = {
+      headers: headers
+    }
+    return setHeaders
   }
 }
