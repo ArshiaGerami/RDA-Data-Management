@@ -204,13 +204,13 @@
                             </div>
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Disable" [icon]="faMinusCircle" size="1x"
-                              (click)="disableGroup(element._id)"></fa-icon>
+                              (click)="disableGroup(element._id, element.title)"></fa-icon>
                             </div>
                           </div>
                           <div class="row" *ngIf="element.status === false">
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Enable" [icon]="faCheckCircle" size="1x"
-                              (click)="enableGroup(element._id)"></fa-icon>
+                              (click)="enableGroup(element._id, element.title)"></fa-icon>
                             </div>
                           </div>
                         </td>

@@ -144,7 +144,6 @@ export class DashboardComponent implements OnInit {
     this.page.per_page = pageSize;
     this.loginService.getUser(this.page, this.getSetHeader).toPromise().then(data => {
       this.userList = data
-      console.log(this.userList);
       this.length = this.userList.total;
       this.userSource = new MatTableDataSource(this.userList.data);
       this.userSource.sort = this.sort;
@@ -188,10 +187,11 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  disableGroup(id: string) {
+  disableGroup(id: string, title:string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
-      width: '450px',
-      height: '150px'
+      width: '550px',
+      height: '150px',
+      data:{title}
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -208,11 +208,11 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  enableGroup(id: string) {
+  enableGroup(id: string, title:string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
-      width: '450px',
+      width: '550px',
       height: '150px',
-      data:{enable: 'yes'}
+      data:{enable: 'yes', title}
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {

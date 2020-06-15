@@ -1,6 +1,6 @@
 <div class="row mt-2" *ngIf="!showEnableGroup">
     <div class="col-12">
-        <h2>Are you sure want to disable this group?</h2>
+        <h2>Are you sure want to disable '{{groupName}}' group?</h2>
     </div>
 </div>
 <div class="row" *ngIf="!showEnableGroup">
@@ -13,7 +13,7 @@
 </div>
 <div class="row mt-2" *ngIf="showEnableGroup">
     <div class="col-12">
-        <h2>Are you sure want to enable this group?</h2>
+        <h2>Are you sure want to enable '{{groupName}}' group?</h2>
     </div>
 </div>
 <div class="row" *ngIf="showEnableGroup">
