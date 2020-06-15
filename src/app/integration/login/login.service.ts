@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
-import { Login, Group, GroupDisable, CreateGroup } from './login.model';
+import { Login, Group, GroupDisable, CreateGroup, UpdateGroup } from './login.model';
 
 export interface JWT {
   token: string;
@@ -63,6 +63,12 @@ export class LoginService {
     const body: GroupDisable ={
       id: groupDisable.id,
     }
-    return this.http.put(environment.host + '/user/changeStatus',body , setHeaders)
+    return this.http.put(environment.host + '/group/changeStatus',body , setHeaders)
+  }
+  updateGroup(updateGroup: UpdateGroup, setHeaders){
+    const body : UpdateGroup ={
+      item: updateGroup.item,
+    }
+    return this.http.put(environment.host + '/group/update', body, setHeaders);
   }
 }

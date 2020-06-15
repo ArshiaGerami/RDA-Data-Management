@@ -63,7 +63,7 @@
                   </mat-form-field>
                   <div class="responsive_table">
                     <table mat-table [dataSource]="userSource" class="mat-elevation-z8">
-
+                      
                       <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
 
@@ -95,9 +95,11 @@
                       <ng-container matColumnDef="role">
                         <th mat-header-cell *matHeaderCellDef> Role </th>
                         <td mat-cell *matCellDef="let element">
-                          <div *ngIf="element.relations.role === 1">Admin</div>
-                          <div *ngIf="element.relations.role === 2">Super User</div>
-                          <div *ngIf="element.relations.role === 3">User</div>  
+                          <div *ngFor="let role of element.relations">
+                          <div *ngIf="role.role === 1">Admin</div>
+                          <div *ngIf="role.role === 2">Super User</div>
+                          <div *ngIf="role.role === 3">User</div> 
+                          </div> 
                         </td>
                       </ng-container>
 
@@ -109,7 +111,7 @@
                       <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef> Action </th>
                         <td mat-cell *matCellDef="let element">
-                          <div class="row">
+                          <div class="row" *ngIf="element.status === true">
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Delete" [icon]="faUserTimes" size="1x" class="fa-icon-delete"
                                 (click)="deleteGroup(element._id)"></fa-icon>
@@ -119,6 +121,11 @@
                             </div>
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Disable" [icon]="faUserAltSlash" size="1x"></fa-icon>
+                            </div>
+                          </div>
+                          <div class="row" *ngIf="element.status === false;">
+                            <div class="col-md-2 col-sm-12 col-lg-2">
+                              <fa-icon title="Enable" [icon]="faUser" size="1x"></fa-icon>
                             </div>
                           </div>
                         </td>
@@ -169,7 +176,7 @@
                       <!-- Weight Column -->
                       <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef> Name </th>
-                        <td mat-cell *matCellDef="let element">{{element.title}}</td>
+                        <td mat-cell title="{{element.title}}" *matCellDef="let element">{{element.title |slice:0:20}}{{element.title.length > 20 ? '...':''}}</td>
                       </ng-container>
 
                       <!-- Symbol Column -->
@@ -186,19 +193,21 @@
                       <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef> Action </th>
                         <td mat-cell *matCellDef="let element">
-                          <div class="row">
+                          <div class="row" *ngIf="element.status === true">
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Delete" [icon]="faTrash" 
                               size="1x" class="fa-icon-delete"
                                 (click)="deleteGroup(element._id)"></fa-icon>
                             </div>
                             <div class="col-md-2 col-sm-12 col-lg-2">
-                              <fa-icon title="Edit" [icon]="faEdit" size="1x"></fa-icon>
+                              <fa-icon title="Edit" [icon]="faEdit" size="1x" (click)="updateGroup(element._id, element.title)"></fa-icon>
                             </div>
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Disable" [icon]="faMinusCircle" size="1x"
                               (click)="disableGroup(element._id)"></fa-icon>
                             </div>
+                          </div>
+                          <div class="row" *ngIf="element.status === false">
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Enable" [icon]="faCheckCircle" size="1x"
                               (click)="enableGroup(element._id)"></fa-icon>

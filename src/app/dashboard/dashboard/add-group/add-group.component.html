@@ -5,7 +5,8 @@
                 <form #addGroup="ngForm">
              <div class="row">
                  <div class="col-12">
-                <h1 class="mb-0">Add Group</h1>
+                <h1 class="mb-0" *ngIf="!showEditGroup">Add Group</h1>
+                <h1 class="mb-0" *ngIf="showEditGroup" style="word-break: break-all;">Edit '{{groupName.title}}'</h1>
                 <hr class="mt-0">
                 <mat-form-field class="form-field">
                     <mat-label>Group Name</mat-label>

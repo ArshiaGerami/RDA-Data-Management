@@ -142,6 +142,11 @@ fa-icon{
   padding-top:4.5rem;
 }
 
+/*for Dialog*/
+.customDialog .mat-dialog-container{
+ background-color: transparent !important;
+}
+
 /*Dashboard*/
 .dashboard{
   ul li:hover,fa-icon:hover{

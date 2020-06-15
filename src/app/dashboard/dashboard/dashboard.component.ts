@@ -12,6 +12,7 @@ import {
   faUserTimes,
   faUserEdit,
   faUserAltSlash,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
   faUserTimes = faUserTimes;
   faUserEdit = faUserEdit;
   faUserAltSlash = faUserAltSlash;
+  faUser = faUser;
   public showDashboardList = true;
   public showUserList = false;
   public showGroupList = false;
@@ -129,7 +131,8 @@ export class DashboardComponent implements OnInit {
   addNewUser() {
     const dialog = this.matDialog.open(AddNewUserComponent, {
       width: '800px',
-      height: 'auto'
+      height: 'auto',
+      panelClass:'customDialog'
     });
     dialog.afterClosed().subscribe(result => {
 
@@ -141,6 +144,7 @@ export class DashboardComponent implements OnInit {
     this.page.per_page = pageSize;
     this.loginService.getUser(this.page, this.getSetHeader).toPromise().then(data => {
       this.userList = data
+      console.log(this.userList);
       this.length = this.userList.total;
       this.userSource = new MatTableDataSource(this.userList.data);
       this.userSource.sort = this.sort;
@@ -169,7 +173,7 @@ export class DashboardComponent implements OnInit {
   deleteGroup(id: string) {
     const dialog = this.matDialog.open(DeleteGroupComponent, {
       width: '400px',
-      height: '200px',
+      height: '150px',
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -186,8 +190,8 @@ export class DashboardComponent implements OnInit {
   }
   disableGroup(id: string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
-      width: '400px',
-      height: '200px'
+      width: '450px',
+      height: '150px'
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -206,8 +210,8 @@ export class DashboardComponent implements OnInit {
   }
   enableGroup(id: string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
-      width: '400px',
-      height: '200px',
+      width: '450px',
+      height: '150px',
       data:{enable: 'yes'}
     });
     dialog.afterClosed().subscribe(result => {
@@ -216,11 +220,37 @@ export class DashboardComponent implements OnInit {
         this.getIdForDisableAndEnbaleGroup.id = id
         this.loginService.disableGroup(this.getIdForDisableAndEnbaleGroup, this.getSetHeader).toPromise()
           .then(data => {
-            this.openSnackBar("Group successfully has been Enabled", "");
+            this.openSnackBar("Group successfully has been enabled", "");
+            setTimeout(() => {
+              this.getAllGroups(this.pageNumber, this.pageSize)
+            }, 500)
           }, error => {
-            this.openSnackBar("Some thing wrong please try again later", "")
+            this.openSnackBar("Some thing wrong please try again later", "");
           });
       }
     })
+  }
+  updateGroup(id:string, title:string){
+    const dialog = this.matDialog.open(AddGroupComponent, {
+      width: '400px',
+      height: 'auto',
+      data:{update:'yes', title},
+    });
+    dialog.afterClosed().subscribe(result => {
+      if(result !=='no'){
+      this.getSetHeader = this.constant.addAutherization();
+      this.getGroupItem.item = result;
+      this.getGroupItem.item.id = id;
+      this.loginService.updateGroup(this.getGroupItem, this.getSetHeader).toPromise()
+      .then(data => {
+        this.openSnackBar("Group successfully has been updated", "");
+        setTimeout(() => {
+          this.getAllGroups(this.pageNumber, this.pageSize)
+        }, 500)
+      }, error => {
+        this.openSnackBar("Some thing wrong please try again later", "")
+      });
+      }
+    });
   }
 }
