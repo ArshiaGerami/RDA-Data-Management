@@ -71,4 +71,21 @@ export class LoginService {
     }
     return this.http.put(environment.host + '/group/update', body, setHeaders);
   }
+  deleteUser(id: string){
+    this.token = localStorage.getItem('jwt-token');
+    const options ={
+      headers: new HttpHeaders().set('Authorization', this.token).set('x-access-token', this.token)
+      .set('X-Requested-With','XMLHttpRequest'),
+      body:{
+        id:id
+      }
+    }
+     return this.http.delete(environment.host + '/user/delete',options)
+  }
+  disableUser(groupDisable : GroupDisable, setHeaders){
+    const body: GroupDisable ={
+      id: groupDisable.id,
+    }
+    return this.http.put(environment.host + '/user/changeStatus',body , setHeaders)
+  }
 }

@@ -53,14 +53,18 @@ export class DashboardComponent implements OnInit {
   public getDashboardData: any = {};
   public groupId: any = {};
   public length = 0;
+  public userLength = 0
   public pageNumber = 0;
   public pageSize = 10;
+  public userPageNumber = 0;
+  public userPageSize = 10;
   public page: any = {};
   public userList: any = [];
   public getSetHeader: any = {};
-  public getIdForDisableAndEnbaleGroup: any = {};
+  public getIdForDisableAndEnableGroup: any = {};
   public commentGroup = false;
   public getGroupItem: any = {};
+  public getIdForDisableAndEnableUser: any= {};
   displayedColumns: string[] = ['no', 'id', 'name', 'status', 'createdAt', 'action'];
   displayedUserColumns: string[] = ['no', 'id', 'name', 'email', 'role', 'createdAt', 'action']
   dataSource;
@@ -89,7 +93,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.token = localStorage.getItem('jwt-token');
     this.getAllGroups(this.pageNumber, this.pageSize)
-    this.getAllUser(this.pageNumber, this.pageSize);
+    this.getAllUser(this.userPageNumber, this.userPageSize);
   }
 
   showDashboard() {
@@ -116,8 +120,6 @@ export class DashboardComponent implements OnInit {
       this.length = this.groupList.length;
       this.dataSource = new MatTableDataSource(this.groupList);
       this.dataSource.sort = this.sort;
-      //   this.dataSource.paginator = this.paginator;
-      // this.detectChange.detectChanges;
     })
   }
 
@@ -128,11 +130,18 @@ export class DashboardComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     })
   }
+  filterUser(filterValue: string) {
+    this.userSource.filter = filterValue.trim().toLowerCase();
+    setTimeout(() => {
+      this.userSource.sort = this.sort;
+      this.userSource.paginator = this.paginator;
+    })
+  }
   addNewUser() {
     const dialog = this.matDialog.open(AddNewUserComponent, {
       width: '800px',
       height: 'auto',
-      panelClass:'customDialog'
+      panelClass: 'customDialog'
     });
     dialog.afterClosed().subscribe(result => {
 
@@ -143,10 +152,72 @@ export class DashboardComponent implements OnInit {
     this.page.page = pageNumber;
     this.page.per_page = pageSize;
     this.loginService.getUser(this.page, this.getSetHeader).toPromise().then(data => {
-      this.userList = data
-      this.length = this.userList.total;
+      this.userList = data;
+      this.userLength = this.userList.total;
       this.userSource = new MatTableDataSource(this.userList.data);
       this.userSource.sort = this.sort;
+    })
+  }
+  deleteUser(id: string, userName: string) {
+    console.log(userName);
+    const dialog = this.matDialog.open(DeleteGroupComponent, {
+      width: '550px',
+      height: '150px',
+      data: { user: userName }
+    });
+    dialog.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.loginService.deleteUser(id).toPromise().then(data => {
+          this.openSnackBar("User successfully has been created", "");
+          setTimeout(() => {
+            this.getAllUser(this.pageNumber, this.pageSize);
+          }, 500)
+        }, error => {
+          this.openSnackBar("Some thing wrong please try again later", "");
+        });
+      }
+    })
+  }
+  disableUser(id:string, userName: string){
+    const dialog = this.matDialog.open(DisableGroupComponent, {
+      width: '550px',
+      height: '150px',
+      data: { user:userName }
+    });
+    dialog.afterClosed().subscribe(result => {
+      if(result ==='yes'){
+        this.getSetHeader = this.constant.addAutherization();
+        this.getIdForDisableAndEnableUser.id = id;
+        this.loginService.disableUser(this.getIdForDisableAndEnableUser, this.getSetHeader).toPromise().then(data => {
+          this.openSnackBar("User successfully has been disabled", "");
+          setTimeout(() => {
+            this.getAllUser(this.pageNumber, this.pageSize);
+          }, 500)
+        }, error => {
+          this.openSnackBar("Some thing wrong please try again later", "");
+        });
+      }
+    })
+  }
+  enableUser(id:string, userName: string){
+    const dialog = this.matDialog.open(DisableGroupComponent, {
+      width: '550px',
+      height: '150px',
+      data: { enableUser:userName }
+    });
+    dialog.afterClosed().subscribe(result => {
+      if(result ==='yes'){
+        this.getSetHeader = this.constant.addAutherization();
+        this.getIdForDisableAndEnableUser.id = id;
+        this.loginService.disableUser(this.getIdForDisableAndEnableUser, this.getSetHeader).toPromise().then(data => {
+          this.openSnackBar("User successfully has been disabled", "");
+          setTimeout(() => {
+            this.getAllUser(this.pageNumber, this.pageSize);
+          }, 500)
+        }, error => {
+          this.openSnackBar("Some thing wrong please try again later", "");
+        });
+      }
     })
   }
   addGroup() {
@@ -161,64 +232,65 @@ export class DashboardComponent implements OnInit {
         this.loginService.addGroup(this.getGroupItem, this.getSetHeader).toPromise().then(data => {
           this.openSnackBar("Group successfully has been created", "")
           setTimeout(() => {
-            this.getAllGroups(this.pageNumber, this.pageSize)
+            this.getAllGroups(this.pageNumber, this.pageSize);
           }, 500)
         }, error => {
-          this.openSnackBar("Some thing wrong please try again later", "")
+          this.openSnackBar("Some thing wrong please try again later", "");
         });
       }
     });
   }
-  deleteGroup(id: string) {
+  deleteGroup(id: string, title: string) {
     const dialog = this.matDialog.open(DeleteGroupComponent, {
-      width: '400px',
+      width: '550px',
       height: '150px',
+      data: {title: title }
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.loginService.deleteGroup(id).toPromise().then(data => {
-          this.openSnackBar("Group successfully has been deleted", "")
+          this.openSnackBar("Group successfully has been deleted", "");
           setTimeout(() => {
-            this.getAllGroups(this.pageNumber, this.pageSize)
+            this.getAllGroups(this.pageNumber, this.pageSize);
           }, 500)
         }, error => {
-          this.openSnackBar("Some thing wrong please try again later", "")
+          this.openSnackBar("Some thing wrong please try again later", "");
         });
       }
     })
   }
-  disableGroup(id: string, title:string) {
+  disableGroup(id: string, title: string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
       width: '550px',
       height: '150px',
-      data:{title}
+      data: { title }
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.getIdForDisableAndEnbaleGroup.id = id
+        this.getIdForDisableAndEnableGroup.id = id
         this.getSetHeader = this.constant.addAutherization();
-        this.loginService.disableGroup(this.getIdForDisableAndEnbaleGroup, this.getSetHeader).toPromise().then(data => {
+        this.loginService.disableGroup(this.getIdForDisableAndEnableGroup, this.getSetHeader).toPromise().then(data => {
           this.openSnackBar("Group successfully has been disabled", "");
           setTimeout(() => {
-            this.getAllGroups(this.pageNumber, this.pageSize)
+            this.getAllGroups(this.pageNumber, this.pageSize);
           }, 500)
         }, error => {
-          this.openSnackBar("Some thing wrong please try again later", "")
+          this.openSnackBar("Some thing wrong please try again later", "");
         });
       }
     })
   }
-  enableGroup(id: string, title:string) {
+  enableGroup(id: string, title: string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
       width: '550px',
       height: '150px',
-      data:{enable: 'yes', title}
+      data: { enable: 'yes', title }
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.getSetHeader = this.constant.addAutherization();
-        this.getIdForDisableAndEnbaleGroup.id = id
-        this.loginService.disableGroup(this.getIdForDisableAndEnbaleGroup, this.getSetHeader).toPromise()
+        this.getIdForDisableAndEnableGroup.id = id
+        this.loginService.disableGroup(this.getIdForDisableAndEnableGroup, this.getSetHeader).toPromise()
           .then(data => {
             this.openSnackBar("Group successfully has been enabled", "");
             setTimeout(() => {
@@ -230,26 +302,26 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  updateGroup(id:string, title:string){
+  updateGroup(id: string, title: string) {
     const dialog = this.matDialog.open(AddGroupComponent, {
       width: '400px',
       height: 'auto',
-      data:{update:'yes', title},
+      data: { update: 'yes', title },
     });
     dialog.afterClosed().subscribe(result => {
-      if(result !=='no'){
-      this.getSetHeader = this.constant.addAutherization();
-      this.getGroupItem.item = result;
-      this.getGroupItem.item.id = id;
-      this.loginService.updateGroup(this.getGroupItem, this.getSetHeader).toPromise()
-      .then(data => {
-        this.openSnackBar("Group successfully has been updated", "");
-        setTimeout(() => {
-          this.getAllGroups(this.pageNumber, this.pageSize)
-        }, 500)
-      }, error => {
-        this.openSnackBar("Some thing wrong please try again later", "")
-      });
+      if (result !== 'no') {
+        this.getSetHeader = this.constant.addAutherization();
+        this.getGroupItem.item = result;
+        this.getGroupItem.item.id = id;
+        this.loginService.updateGroup(this.getGroupItem, this.getSetHeader).toPromise()
+          .then(data => {
+            this.openSnackBar("Group successfully has been updated", "");
+            setTimeout(() => {
+              this.getAllGroups(this.pageNumber, this.pageSize)
+            }, 500)
+          }, error => {
+            this.openSnackBar("Some thing wrong please try again later", "")
+          });
       }
     });
   }
