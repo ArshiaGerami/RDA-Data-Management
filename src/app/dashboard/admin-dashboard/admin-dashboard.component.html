@@ -1,37 +1,74 @@
 <div class="container-fluid mt-0 dashboard">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-lg-12">
-        <div class="row resize-sid-nav-bar">
-          <div class="col-md-3 col-lg-2 col-sm-12 side-nav-bar">
-            <ul class="nav flex-column nav-pills mt-2">
-              <li class="nav-item" id="uploadDocument">
-                <a class="nav-link" data-toggle="tab" active="on">
-                  <fa-icon [icon]="faChartLine" size="1x" class="mr-2"></fa-icon>
-                  Dashboard
-                </a>
-              </li>
-              <li class="nav-item" id="downloadDocument">
-                <a class="nav-link" data-toggle="tab">
-                  <fa-icon [icon]="faMap" size="1x" class="mr-2"></fa-icon>
-                  Map
-                </a>
-              </li>
-              <li class="nav-item" id="downloadDocument">
-                <a class="nav-link" data-toggle="tab">
-                  <fa-icon [icon]="faLayerGroup" size="1x" class="mr-2"></fa-icon>
-                  Catelouge
-                </a>
-              </li>
-              <li class="nav-item" id="downloadDocument">
-                <a class="nav-link" data-toggle="tab">
-                  <fa-icon [icon]="faProjectDiagram" size="1x" class="mr-2"></fa-icon>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="row resize-sid-nav-bar">
+        <div class="col-md-3 col-lg-2 col-sm-12 side-nav-bar">
+          <ul class="nav flex-column nav-pills mt-2">
+            <li class="nav-item" id="uploadDocument" *ngIf="showDashboard" (click)="displayDashboard()">
+              <a class="nav-link active" data-toggle="tab" active="on">
+                <fa-icon [icon]="faChartLine" size="1x" class="mr-2"></fa-icon>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item" id="uploadDocument" *ngIf="!showDashboard" (click)="displayDashboard()">
+              <a class="nav-link" data-toggle="tab" active="on">
+                <fa-icon [icon]="faChartLine" size="1x" class="mr-2"></fa-icon>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item" id="downloadDocument" *ngIf="showMap" (click)="displayMap()">
+              <a class="nav-link active" data-toggle="tab">
+                <fa-icon [icon]="faMap" size="1x" class="mr-2"></fa-icon>
+                Map
+              </a>
+            </li>
+            <li class="nav-item" id="downloadDocument" *ngIf="!showMap" (click)="displayMap()">
+              <a class="nav-link" data-toggle="tab">
+                <fa-icon [icon]="faMap" size="1x" class="mr-2"></fa-icon>
+                Map
+              </a>
+            </li>
+            <li class="nav-item" id="downloadDocument" *ngIf="showCatelouge" (click)="displayCatelouge()">
+              <a class="nav-link active" data-toggle="tab">
+                <fa-icon [icon]="faLayerGroup" size="1x" class="mr-2"></fa-icon>
+                Catelouge
+              </a>
+            </li>
+            <li class="nav-item" id="downloadDocument" *ngIf="!showCatelouge" (click)="displayCatelouge()">
+              <a class="nav-link" data-toggle="tab">
+                <fa-icon [icon]="faLayerGroup" size="1x" class="mr-2"></fa-icon>
+                Catelouge
+              </a>
+            </li>
+            <li class="nav-item" id="downloadDocument" *ngIf="showProjectData" (click)="displayProjectData()">
+              <a class="nav-link active" data-toggle="tab">
+                <fa-icon [icon]="faProjectDiagram" size="1x" class="mr-2"></fa-icon>
                 Project Data
-                </a>
-              </li>
-            </ul>
-          </div>
+              </a>
+            </li>
+            <li class="nav-item" id="downloadDocument" *ngIf="!showProjectData" (click)="displayProjectData()">
+              <a class="nav-link" data-toggle="tab">
+                <fa-icon [icon]="faProjectDiagram" size="1x" class="mr-2"></fa-icon>
+                Project Data
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-9 col-sm-12 col-lg-10 ml-auto mt-3" *ngIf="showCatelouge">
+          <mat-card class="catalouge">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="row">
+                  <input type="file" #folderInput (change)="handleFileInput($event)">
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" (click)="uploadFile()">Upload</button>
+                </div>
+              </div>
+            </div>
+          </mat-card>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

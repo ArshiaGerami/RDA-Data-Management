@@ -1,10 +1,3 @@
-export class Login {
-    id: string;
-    name: string;
-    avatar: string;
-    email: string;
-    status: boolean;
-}
 export class Group {
     page: number;
     per_page: number;
@@ -24,4 +17,12 @@ export class getUpdateGroupDetail{
 }
 export class UpdateGroup {
   item: getUpdateGroupDetail[];
+}
+export class File{
+
+}
+export class FileArray{
+    files:File[]
+    userId:string;
+    query:{}
 }

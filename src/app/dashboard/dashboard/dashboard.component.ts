@@ -159,10 +159,9 @@ export class DashboardComponent implements OnInit {
     })
   }
   deleteUser(id: string, userName: string) {
-    console.log(userName);
     const dialog = this.matDialog.open(DeleteGroupComponent, {
       width: '550px',
-      height: '150px',
+      height: 'auto',
       data: { user: userName }
     });
     dialog.afterClosed().subscribe(result => {

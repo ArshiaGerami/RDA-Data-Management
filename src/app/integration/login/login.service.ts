@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment'
-import { Login, Group, GroupDisable, CreateGroup, UpdateGroup } from './login.model';
+import { 
+  Group, 
+  GroupDisable, 
+  CreateGroup, 
+  UpdateGroup,
+  FileArray
+ } from './login.model';
 
 export interface JWT {
   token: string;
@@ -15,18 +21,6 @@ export class LoginService {
   
   constructor(
     private http: HttpClient) {}
-
-  //login
-  userInfromation(login: Login, setHeaders) {
-    const body: Login = {
-      id: login.id,
-      name: login.name,
-      email: login.email,
-      avatar: login.avatar,
-      status: login.status,
-    }
-    return this.http.put(environment.host + '/user/update', body, setHeaders)
-  }
 
   getGroup(group: Group , setHeaders){
     const body: Group={
@@ -87,5 +81,14 @@ export class LoginService {
       id: groupDisable.id,
     }
     return this.http.put(environment.host + '/user/changeStatus',body , setHeaders)
+  }
+  uploadFile(fileArray: FileArray, setHeaders){
+    const body : FileArray ={
+      files:fileArray.files,
+      userId:fileArray.userId,
+      query:fileArray.query
+    }
+    console.log(body);
+    return this.http.post(environment.host + '/file/uploads',body, setHeaders)
   }
 }
