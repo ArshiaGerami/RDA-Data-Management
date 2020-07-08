@@ -26,3 +26,8 @@ export class FileArray{
     userId:string;
     query:{}
 }
+export class GroupFilter {
+    page: number;
+    per_page: number;
+    query:string;
+}

@@ -5,20 +5,11 @@ import {
   faLayerGroup,
   faSortAmountDownAlt,
   faProjectDiagram,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from '../../integration/login/login.service';
 import { FileUploadService } from '../../integration/fileUpload/file-upload.service';
-import { Observable } from 'rxjs';
 
-export class Files{
-  files:[{
-    file:string;
-  }]
-  userId:string
-  query:{
-    group:string
-  }
-}
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -26,17 +17,19 @@ export class Files{
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
+  progress: number = 0;
 
   faChartLine = faChartLine;
   faMap = faMap;
   faLayerGroup = faLayerGroup;
   faSortAmountDownAlt = faSortAmountDownAlt;
-  faProjectDiagram = faProjectDiagram
-  public sendFile={
-    files:[],
-    userId:'',
-    query:{
-      group:''
+  faProjectDiagram = faProjectDiagram;
+  faTimes = faTimes;
+  public sendFile = {
+    files: [],
+    userId: '',
+    query: {
+      group: ''
     }
   };
   public getSetHeader: any = {};
@@ -47,10 +40,13 @@ export class AdminDashboardComponent implements OnInit {
   public showMap = false;
   public showCatelouge = false;
   public showProjectData = false;
+  public attachmentList:any[]=[]
+  public checkSelector:any={};
+  public storeAttachedFile:any[]=[];
 
   constructor(
     private loginService: LoginService,
-    private constant: FileUploadService) { }
+    private constant: FileUploadService,) {}
 
   ngOnInit(): void {
     const check = JSON.parse(localStorage.getItem('relations'));;
@@ -59,57 +55,61 @@ export class AdminDashboardComponent implements OnInit {
     this.sendFile.userId = this.userId;
     this.sendFile.query.group = this.groupName;
   }
-  displayDashboard(){
+  displayDashboard() {
     this.showDashboard = true;
     this.showCatelouge = false;
     this.showMap = false;
     this.showProjectData = false;
   }
-  displayMap(){
+  displayMap() {
     this.showDashboard = false;
     this.showCatelouge = false;
     this.showMap = true;
     this.showProjectData = false;
   }
-  displayCatelouge(){
+  displayCatelouge() {
     this.showDashboard = false;
     this.showCatelouge = true;
     this.showMap = false;
     this.showProjectData = false;
   }
-  displayProjectData(){
+  displayProjectData() {
     this.showDashboard = false;
     this.showCatelouge = false;
     this.showMap = false;
     this.showProjectData = true;
   }
-  handleFileInput(event){
-    console.log(event);
-   this.constant.uploadFileAndFolder(event).subscribe((data:any)=> {
-     console.log(data);
-     if(data){
-      this.sendFile.files.push({file:data});
-      console.log(this.sendFile.files);
-     }
-   });
-  // Array.prototype.forEach.call(files, file => {
-  //   this.sendFile.files.push(file.webkitRelativePath);
-  // });
-  }
-    uploadFile(){
-      this.getSetHeader = this.constant.addAutherization();
-      console.log(this.sendFile);
-      let formData = new FormData();
-    // for (var i = 0; i < this.sendFile.files.length; i++) {
-    //     formData.append("uploads[]", this.sendFile.files[i]);
-    // }  
-    console.log(formData);
-      this.loginService.uploadFile(this.sendFile, this.getSetHeader).toPromise().then(data => {
-        console.log(data);
-
-      }, error => {
-
-      })
+  handleFileInput(files) {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      let list: any={};
+      list.name = file.name;
+      list.type = file.type;
+      list.size = file.size;
+      this.attachmentList.unshift(list)
+      const path = file.webkitRelativePath.split('/');
+      this.sendFile.files.push({file:path})
     }
-
   }
+  uploadFile() {
+    this.getSetHeader = this.constant.addAutherization();
+    this.loginService.uploadFile(this.sendFile, this.getSetHeader).toPromise().then(data => {
+      console.log(data);
+    }, error => {
+      console.log(error)
+    })
+  }
+  submitUser(event) {
+          this.progress = Math.round(event.loaded / event.total * 100);
+          console.log(`Uploaded! ${this.progress}%`);
+  }
+  deleteFile(name:any){
+    let fileIndex = this.attachmentList.findIndex(x => x.name === name);
+    this.attachmentList.splice(fileIndex,1);
+    this.storeAttachedFile.splice(fileIndex,1);
+    if(this.attachmentList.length === 0){
+    this.checkSelector.file='';
+    }
+  }
+
+}

@@ -6,7 +6,6 @@ import { MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition, } from'@angular/material/snack-bar';
 import { HttpHeaders } from '@angular/common/http';
-import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'
@@ -85,27 +84,5 @@ export class FileUploadService {
       headers: headers
     }
     return setHeaders
-  }
-  public uploadFileAndFolder(event){
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    return Observable.create(observer => {
-      reader.onloadend = () =>{
-        observer.next(reader.result);
-        observer.complete()
-      }
-    })
-  //   for (let i = 0; i < file.length; i++) {
-  //     const item = file[i];
-  //     if (item.kind === 'file') {
-  //         const entry = item.webkitGetAsEntry();
-  //         if (entry.isFile) {
-  //             return file
-  //         } else if (entry.isDirectory) {
-  //             return file
-  //         }
-  //     }
-  // }
   }
 }

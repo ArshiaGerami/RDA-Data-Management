@@ -6,7 +6,8 @@ import {
   GroupDisable, 
   CreateGroup, 
   UpdateGroup,
-  FileArray
+  FileArray,
+  GroupFilter
  } from './login.model';
 
 export interface JWT {
@@ -28,6 +29,22 @@ export class LoginService {
       per_page: group.per_page
     }
     return this.http.post(environment.host + '/group/get',body, setHeaders);
+  }
+  getFilterGroup(groupFilter: GroupFilter , setHeaders){
+    const body: GroupFilter={
+      page: groupFilter.page,
+      per_page: groupFilter.per_page,
+      query: groupFilter.query
+    }
+    return this.http.post(environment.host + '/group/getFilter',body, setHeaders);
+  }
+  getUserFilter(groupFilter: GroupFilter , setHeaders){
+    const body: GroupFilter={
+      page: groupFilter.page,
+      per_page: groupFilter.per_page,
+      query: groupFilter.query
+    }
+    return this.http.post(environment.host + '/user/getFilter',body, setHeaders);
   }
   deleteGroup(id:string){
     this.token = localStorage.getItem('jwt-token');

@@ -64,7 +64,9 @@ export class DashboardComponent implements OnInit {
   public getIdForDisableAndEnableGroup: any = {};
   public commentGroup = false;
   public getGroupItem: any = {};
-  public getIdForDisableAndEnableUser: any= {};
+  public getIdForDisableAndEnableUser: any = {};
+  public getUserFilter: any = {};
+
   displayedColumns: string[] = ['no', 'id', 'name', 'status', 'createdAt', 'action'];
   displayedUserColumns: string[] = ['no', 'id', 'name', 'email', 'role', 'createdAt', 'action']
   dataSource;
@@ -123,19 +125,42 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  filter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+  filter(filterValue: any) {
+    if(filterValue){
+    this.getSetHeader = this.constant.addAutherization();
+    this.page.pageNumber = this.pageNumber;
+    this.page.pageSize = this.pageSize;
+    this.page.query = filterValue.trim().toLowerCase();
+    this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then(data => {
+      this.groupList = data
+      this.dataSource = new MatTableDataSource(this.groupList);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      })
     })
+  }else{
+    this.getAllGroups(this.pageNumber, this.pageSize)
   }
-  filterUser(filterValue: string) {
-    this.userSource.filter = filterValue.trim().toLowerCase();
-    setTimeout(() => {
-      this.userSource.sort = this.sort;
-      this.userSource.paginator = this.paginator;
-    })
+  
+  }
+  filterUser(filterValue: any) {
+    if (filterValue) {
+      this.getSetHeader = this.constant.addAutherization();
+      this.page.pageNumber = this.pageNumber;
+      this.page.pageSize = this.pageSize;
+      this.page.query = filterValue.trim().toLowerCase();
+      this.loginService.getUserFilter(this.page, this.getSetHeader).toPromise().then(res => {
+        this.userList = res;
+        this.userSource = new MatTableDataSource(this.userList.data);
+        setTimeout(() => {
+          this.userSource.sort = this.sort;
+          this.userSource.paginator = this.paginator;
+        })
+      })
+    } else {
+      this.getAllUser(this.pageNumber, this.pageSize)
+    }
   }
   addNewUser() {
     const dialog = this.matDialog.open(AddNewUserComponent, {
@@ -177,14 +202,14 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  disableUser(id:string, userName: string){
+  disableUser(id: string, userName: string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
       width: '550px',
       height: '150px',
-      data: { user:userName }
+      data: { user: userName }
     });
     dialog.afterClosed().subscribe(result => {
-      if(result ==='yes'){
+      if (result === 'yes') {
         this.getSetHeader = this.constant.addAutherization();
         this.getIdForDisableAndEnableUser.id = id;
         this.loginService.disableUser(this.getIdForDisableAndEnableUser, this.getSetHeader).toPromise().then(data => {
@@ -198,14 +223,14 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  enableUser(id:string, userName: string){
+  enableUser(id: string, userName: string) {
     const dialog = this.matDialog.open(DisableGroupComponent, {
       width: '550px',
       height: '150px',
-      data: { enableUser:userName }
+      data: { enableUser: userName }
     });
     dialog.afterClosed().subscribe(result => {
-      if(result ==='yes'){
+      if (result === 'yes') {
         this.getSetHeader = this.constant.addAutherization();
         this.getIdForDisableAndEnableUser.id = id;
         this.loginService.disableUser(this.getIdForDisableAndEnableUser, this.getSetHeader).toPromise().then(data => {
@@ -243,7 +268,7 @@ export class DashboardComponent implements OnInit {
     const dialog = this.matDialog.open(DeleteGroupComponent, {
       width: '550px',
       height: '150px',
-      data: {title: title }
+      data: { title: title }
     });
     dialog.afterClosed().subscribe(result => {
       if (result === 'yes') {

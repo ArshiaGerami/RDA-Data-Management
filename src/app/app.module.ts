@@ -35,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddGroupComponent } from './dashboard/dashboard/add-group/add-group.component';
 import { AddNewUserComponent } from './dashboard/dashboard/add-new-user/add-new-user.component';
 import { DisableGroupComponent } from './dashboard/dashboard/disable-group/disable-group.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { DisableGroupComponent } from './dashboard/dashboard/disable-group/disab
     MatPaginatorModule,
     MatIconModule,
     MatDialogModule,
+    MatAutocompleteModule,
   ],
   providers: [
     DatePipe, 

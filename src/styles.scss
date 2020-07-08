@@ -147,6 +147,24 @@ fa-icon{
   overflow-y: scroll;
 }
 
+
+/*for AttachedFile*/
+.listBox{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  padding:0.5rem;
+  overflow-y: scroll;
+  height: 150px;
+}
+.showAttachedDetail{
+  background-color:$secondary;
+  font-size: calc(12px + 0.2rem);
+  color:#fff;
+  width:100%;
+  height: 20px;
+  border-radius:0 10px;
+}
 /*Dashboard*/
 .dashboard{
   ul li:hover,fa-icon:hover{
@@ -176,7 +194,10 @@ button{
   float: right;
 }
 .catalouge{
-  padding:1rem;
+  padding:2rem;
+  fa-icon{
+    color:#ffffff;
+  }
 }
 }
 .search{
