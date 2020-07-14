@@ -7,7 +7,8 @@ import {
   CreateGroup, 
   UpdateGroup,
   FileArray,
-  GroupFilter
+  GroupFilter,
+  UserFilter
  } from './login.model';
 
 export interface JWT {
@@ -34,15 +35,16 @@ export class LoginService {
     const body: GroupFilter={
       page: groupFilter.page,
       per_page: groupFilter.per_page,
-      query: groupFilter.query
+      query: groupFilter.query,
+      groupId: groupFilter.groupId,
     }
     return this.http.post(environment.host + '/group/getFilter',body, setHeaders);
   }
-  getUserFilter(groupFilter: GroupFilter , setHeaders){
-    const body: GroupFilter={
-      page: groupFilter.page,
-      per_page: groupFilter.per_page,
-      query: groupFilter.query
+  getUserFilter(userFilter: UserFilter , setHeaders){
+    const body: UserFilter={
+      page: userFilter.page,
+      per_page: userFilter.per_page,
+      query: userFilter.query
     }
     return this.http.post(environment.host + '/user/getFilter',body, setHeaders);
   }

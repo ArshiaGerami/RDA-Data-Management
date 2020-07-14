@@ -4,7 +4,7 @@ import {
   faEye,
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { LoginService } from '../../../integration/login/login.service';
 import { FileUploadService} from '../../../integration/fileUpload/file-upload.service';
 @Component({
@@ -12,6 +12,8 @@ import { FileUploadService} from '../../../integration/fileUpload/file-upload.se
   templateUrl: './add-new-user.component.html',
   styleUrls: ['./add-new-user.component.scss']
 })
+
+
 export class AddNewUserComponent implements OnInit {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
@@ -20,7 +22,7 @@ export class AddNewUserComponent implements OnInit {
   public getSetHeader: any = {};
   public page: any = {};
   public pageNumber = 0;
-  public pageSize = 15;
+  public pageSize = 1000;
   public groupList: any = [];
   public getName:any={};
   public filterGroupList:any=[];
@@ -36,6 +38,10 @@ export class AddNewUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllGroup(this.pageNumber, this.pageSize);
+    this.check.push(this.fb.group({
+      role: new FormControl(''),
+      groupId: new FormControl(''),
+    }))
   }
   getAllGroup(pageNumber, pageSize){
     this.getSetHeader = this.constant.addAutherization();
@@ -52,10 +58,11 @@ export class AddNewUserComponent implements OnInit {
     this.page.page = this.pageNumber;
     this.page.per_page = this.pageSize;
     this.page.query = value;
-    this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then(data => {
-        this.groupList = data;
-        console.log(this.groupList);
+    this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then((data:any)=> {
+        this.groupList = data.data;
     });
+    }else{
+      this.getAllGroup(this.pageNumber, this.pageSize)
     }
   }
   passwordSuperAdminEyes(newValue: boolean) {
@@ -66,22 +73,34 @@ export class AddNewUserComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-
-      relations: this.fb.array([
-       this.fb.control('')
-      ])
+      relations: new FormArray([])
     // })
   })
+  get parrentNew(){
+    return this.item.controls
+  }
+  get relations(){
+    return this.item.get('relations') as FormArray;   
+  }
+  get check(){
+    return this.parrentNew.relations as FormArray
+  }
+  addNewGroupAndRole(){
+    this.check.push(this.fb.group({
+      role: new FormControl(''),
+      groupId: new FormControl(''),
+    }))
+  }
+  AutoCompleteDisplay(item: any){
+    if (item){
+      return item.title;
+    }
+  }
   cancel() {
     this.dialogRef.close();
   }
   create() {
     console.log(this.item.value);
   }
-  get relations(){
-    return this.item.get('relations') as FormArray;
-  }
-  addNewGroupAndRole(){
-    this.relations.push(this.fb.control(''));
-  }
+
 }

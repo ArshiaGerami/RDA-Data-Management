@@ -16,6 +16,7 @@ export class AppNavComponent implements OnInit, AfterViewInit {
   public isUserlogedIn = false;
   public relation: any = [];
   public showRoles = false;
+  public url = "";
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -31,9 +32,11 @@ export class AppNavComponent implements OnInit, AfterViewInit {
     if (this.relation.length > 1) {
       this.showRoles = true;
     }
-    const check = localStorage.getItem('user');
-    this.getUser = JSON.parse(check);
+    this.getUser =  JSON.parse(localStorage.getItem('user'))
     this.userName = this.getUser.name;
+    if(this.getUser.avatar){
+      this.url ='http://45.77.238.50:4000/'+ this.getUser.avatar;
+      }
     setTimeout(() => {
       this.checkForAllowUser()
     },7000)

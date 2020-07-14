@@ -50,12 +50,17 @@ ngOnInit(): void {
   this.getData = JSON.parse(localStorage.getItem('user'));
   this.email = this.getData.email;
   this.userName = this.getData.name;
-  this.getProfileItem.item.id = this.getData.id;
+  this.checkProfilePicture();
+  this.getProfileItem.item.id = this.getData.id; 
   this.getProfileItem.item.name = this.getData.name;
   this.getProfileItem.item.email = this.getData.email;
   this.getProfileItem.item.relations = this.getData.relations
   this.getProfileItem.item.status = 'true';
-  console.log(this.getProfileItem);
+}
+checkProfilePicture(){
+  if(this.getData.avatar){
+    this.url ='http://45.77.238.50:4000/'+ this.getData.avatar;
+    }
 }
 selectFile(event: any) {
   this.fileUploadService.uploadImage(event).subscribe((img: any) => {
@@ -70,6 +75,9 @@ selectFile(event: any) {
 submitChanges() {
   this.getSetHeader = this.fileUploadService.addAutherization();
   this.profileService.userInfromation(this.getProfileItem, this.getSetHeader).toPromise().then(data => {
+    this.openSnackBar('Profile picture has been updated', '')
+  },error=>{
+    this.openSnackBar('Something went wrong please try again later', '')
   })
 }
 cancel() {

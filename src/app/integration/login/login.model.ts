@@ -30,4 +30,10 @@ export class GroupFilter {
     page: number;
     per_page: number;
     query:string;
+    groupId:string;
+}
+export class UserFilter {
+    page: number;
+    per_page: number;
+    query:string;
 }

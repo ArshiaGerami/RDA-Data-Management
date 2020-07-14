@@ -5,79 +5,78 @@
                 <h1 class="mb-0">Add User</h1>
                 <hr class="mt-0">
                 <!-- <div formGroupName="item"> -->
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-md-4 col-lg-4 col-sm-12 border-right">
-                            <mat-form-field class="form-field">
-                                <mat-label>User Name</mat-label>
-                                <input matInput formControlName="name">
-                            </mat-form-field>
-                            <mat-form-field class="form-field">
-                                <mat-label>Email</mat-label>
-                                <input matInput formControlName="email">
-                            </mat-form-field>
-                            <mat-form-field class="form-field">
-                                <mat-label>Password</mat-label>
-                                <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
-                                    placeholder="********" minlength="8" maxlength="255"
-                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" formControlName="password" />
-                                <mat-icon matSuffix (click)="passwordSuperAdminEyes(true)">
-                                    <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
-                                    <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
-                                </mat-icon>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-8 col-lg-8 col-sm-12 border-right">
-                            <div formArrayName="relations">
-                                <div>
-                                <button class="btn btn-primary btn-block" (click)="addNewGroupAndRole()">Add new Role and Group</button>
-                                <div *ngFor="let rel of relations.controls; let i = index"> 
-                                    <div class="row mt-2">
-                                        <div class="col-12">
-                                            <mat-form-field class="form-field">
-                                                <mat-label>Select Role</mat-label>
-                                                <mat-select  [formControlName]="i">
-                                                    <mat-option value="1">Admin</mat-option>
-                                                    <mat-option value="2">Super User</mat-option>
-                                                    <mat-option value="3">User</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
+                    <div class="col-md-4 col-lg-4 col-sm-12 border-right">
+                        <mat-form-field class="form-field">
+                            <mat-label>User Name</mat-label>
+                            <input matInput formControlName="name">
+                        </mat-form-field>
+                        <mat-form-field class="form-field">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field class="form-field">
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
+                                placeholder="********" minlength="8" maxlength="255"
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" formControlName="password" />
+                            <mat-icon matSuffix (click)="passwordSuperAdminEyes(true)">
+                                <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
+                                <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-12 border-right">
+                        <div formArrayName="relations">
+                            <div>
+                                <button class="btn btn-primary btn-block" (click)="addNewGroupAndRole()">Add new Role
+                                    and Group</button>
+                                <div *ngFor="let rel of relations.controls; let i = index">
+                                    <div [formGroup]="rel">
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <mat-form-field class="form-field">
+                                                    <mat-label>Select Role</mat-label>
+                                                    <mat-select formControlName="role">
+                                                        <mat-option value="1">Admin</mat-option>
+                                                        <mat-option value="2">Super User</mat-option>
+                                                        <mat-option value="3">User</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <mat-form-field class="form-field">
-                                                <input type="text"
-                                                aria-label="text"
-                                                placeholder="Search the group or sub group"
-                                                matInput
-                                                name="query"
-                                                [(ngModel)]="getName.query"
-                                                (ngModelChange)="filterGroupList = filterGroup(getName.query)"
-                                                [formControlName]="i"
-                                                [matAutocomplete]="auto">
-                                                <mat-autocomplete #auto="matAutocomplete">
-                                                    <mat-option *ngFor="let group of groupList" value="{{group.title}}">
-                                                      {{group.title}}
-                                                    </mat-option>
-                                                  </mat-autocomplete>
-                                            </mat-form-field>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <mat-form-field class="form-field">
+                                                    <input type="text" aria-label="text"
+                                                        placeholder="Search the group or sub group" matInput
+                                                        name="query" [(ngModel)]="getName.query"
+                                                        (ngModelChange)="filterGroupList = filterGroup(getName.query)"
+                                                       formControlName="groupId" [matAutocomplete]="auto">
+                                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="AutoCompleteDisplay">
+                                                        <mat-option *ngFor="let group of groupList"
+                                                           [value]="group">
+                                                            {{group.title}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </mat-form-field>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
-                            <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancel</button>
-                        </div>
-                        <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
-                            <button class="btn btn-primary btn-block" type="submit"
-                                [disabled]="!item.valid">create</button>
-                        </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
+                        <button class="btn btn-outline-primary btn-block" (click)="cancel()">Cancel</button>
                     </div>
+                    <div class="col-md-6 col-lg-5 col-sm-12 mt-2">
+                        <button class="btn btn-primary btn-block" type="submit" [disabled]="!item.valid">create</button>
+                    </div>
+                </div>
                 <!-- </div> -->
             </form>
         </mat-card>

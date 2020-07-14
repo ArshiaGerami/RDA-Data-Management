@@ -118,9 +118,9 @@ export class DashboardComponent implements OnInit {
     this.page.page = pageNumber;
     this.page.per_page = pageSize;
     this.loginService.getGroup(this.page, this.getSetHeader).toPromise().then((data: any) => {
-      this.groupList = data.data;
-      this.length = this.groupList.length;
-      this.dataSource = new MatTableDataSource(this.groupList);
+      this.groupList = data;
+      this.length = this.groupList.total;
+      this.dataSource = new MatTableDataSource(this.groupList.data);
       this.dataSource.sort = this.sort;
     })
   }
@@ -131,9 +131,10 @@ export class DashboardComponent implements OnInit {
     this.page.pageNumber = this.pageNumber;
     this.page.pageSize = this.pageSize;
     this.page.query = filterValue.trim().toLowerCase();
-    this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then(data => {
-      this.groupList = data
-      this.dataSource = new MatTableDataSource(this.groupList);
+    this.page.groupId =''
+    this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then(res => {
+      this.groupList = res
+      this.dataSource = new MatTableDataSource(this.groupList.data);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
