@@ -8,7 +8,8 @@ import {
   UpdateGroup,
   FileArray,
   GroupFilter,
-  UserFilter
+  UserFilter,
+  CreateUser
  } from './login.model';
 
 export interface JWT {
@@ -107,7 +108,12 @@ export class LoginService {
       userId:fileArray.userId,
       query:fileArray.query
     }
-    console.log(body);
     return this.http.post(environment.host + '/file/uploads',body, setHeaders)
+  }
+  createNewUser(createUser: CreateUser, setHeaders){
+    const body: CreateUser={
+      item: createUser.item,
+    }
+    return this.http.post(environment.host + '/user/create',body , setHeaders)
   }
 }

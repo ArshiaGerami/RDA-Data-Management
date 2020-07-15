@@ -4,9 +4,10 @@ import {
   faEye,
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { LoginService } from '../../../integration/login/login.service';
-import { FileUploadService} from '../../../integration/fileUpload/file-upload.service';
+import { FileUploadService } from '../../../integration/fileUpload/file-upload.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-new-user',
   templateUrl: './add-new-user.component.html',
@@ -24,26 +25,37 @@ export class AddNewUserComponent implements OnInit {
   public pageNumber = 0;
   public pageSize = 1000;
   public groupList: any = [];
-  public getName:any={};
-  public filterGroupList:any=[];
-  public getRoleAndGroup:any={};
+  public getName: any = {};
+  public filterGroupList: any = [];
+  public getRoleAndGroup: any = {};
+  public control = new FormControl()
 
   constructor(
     public dialogRef: MatDialogRef<AddNewUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private loginService : LoginService,
-    private constant: FileUploadService
+    private loginService: LoginService,
+    private constant: FileUploadService,
+    private matSnackBar: MatSnackBar,
   ) { }
+
+    openSnackBar(message: string, action: string) {
+    this.matSnackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: "top",
+      panelClass: ['matSnackBar']
+    });
+  }
 
   ngOnInit(): void {
     this.getAllGroup(this.pageNumber, this.pageSize);
-    this.check.push(this.fb.group({
-      role: new FormControl(''),
-      groupId: new FormControl(''),
+    this.relations.push(this.fb.group({
+      role: new FormControl(),
+      group: new FormControl(''),
     }))
+    this.filterGroup(this.control.valueChanges)
   }
-  getAllGroup(pageNumber, pageSize){
+  getAllGroup(pageNumber, pageSize) {
     this.getSetHeader = this.constant.addAutherization();
     this.page.page = pageNumber;
     this.page.per_page = pageSize;
@@ -52,47 +64,48 @@ export class AddNewUserComponent implements OnInit {
       this.filterGroupList = data.data
     });
   }
-  filterGroup(value:string){
-    if(value){
-    this.getSetHeader = this.constant.addAutherization();
-    this.page.page = this.pageNumber;
-    this.page.per_page = this.pageSize;
-    this.page.query = value;
-    this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then((data:any)=> {
+  filterGroup(value:any) {
+    if (value) {
+      this.getSetHeader = this.constant.addAutherization();
+      this.page.page = this.pageNumber;
+      this.page.per_page = this.pageSize;
+      this.page.query = value
+      this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then((data: any) => {
         this.groupList = data.data;
-    });
-    }else{
+      });
+    } else {
       this.getAllGroup(this.pageNumber, this.pageSize)
     }
   }
   passwordSuperAdminEyes(newValue: boolean) {
     this.checkPassword = this.checkPassword !== newValue;
   }
-  item = this.fb.group({
-    // item: this.fb.group({
+  formGroup = this.fb.group({
+    item: this.fb.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
       relations: new FormArray([])
-    // })
+    })
   })
   get parrentNew(){
-    return this.item.controls
+    return this.formGroup.controls
+  }
+  get items(){
+      return this.parrentNew.item
   }
   get relations(){
-    return this.item.get('relations') as FormArray;   
-  }
-  get check(){
-    return this.parrentNew.relations as FormArray
+    return this.items.get('relations') as FormArray;   
   }
   addNewGroupAndRole(){
-    this.check.push(this.fb.group({
-      role: new FormControl(''),
-      groupId: new FormControl(''),
+    this.relations.push(this.fb.group({
+      role: new FormControl(),
+      group: new FormControl(''),
     }))
   }
-  AutoCompleteDisplay(item: any){
-    if (item){
+
+  AutoCompleteDisplay(item: any) {
+    if (item) {
       return item.title;
     }
   }
@@ -100,7 +113,13 @@ export class AddNewUserComponent implements OnInit {
     this.dialogRef.close();
   }
   create() {
-    console.log(this.item.value);
+    this.dialogRef.close('yes')
+    this.getSetHeader = this.constant.addAutherization();
+    this.loginService.createNewUser(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
+      this.openSnackBar("User has been created successfully ", "");
+    }, error => {
+      this.openSnackBar("Some thing wrong please try again later", "");
+    });
   }
 
 }

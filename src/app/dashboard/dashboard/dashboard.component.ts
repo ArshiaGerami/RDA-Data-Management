@@ -170,7 +170,11 @@ export class DashboardComponent implements OnInit {
       panelClass: 'customDialog'
     });
     dialog.afterClosed().subscribe(result => {
-
+      if(result === 'yes'){
+        setTimeout(()=>{
+          this.getAllUser(this.pageNumber, this.pageSize);
+        },500)
+      }
     });
   }
   getAllUser(pageNumber, pageSize) {
