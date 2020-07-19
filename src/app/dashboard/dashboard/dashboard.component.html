@@ -118,7 +118,8 @@
                                 (click)="deleteUser(element._id, element.name)"></fa-icon>
                             </div>
                             <div class="col-md-2 col-sm-12 col-lg-2">
-                              <fa-icon title="Edit" [icon]="faUserEdit" size="1x"></fa-icon>
+                              <fa-icon title="Edit" [icon]="faUserEdit" size="1x"
+                              (click)="editUser(element._id)"></fa-icon>
                             </div>
                             <div class="col-md-2 col-sm-12 col-lg-2">
                               <fa-icon title="Disable" (click)="disableUser(element._id, element.name)" [icon]="faUserAltSlash" size="1x"></fa-icon>

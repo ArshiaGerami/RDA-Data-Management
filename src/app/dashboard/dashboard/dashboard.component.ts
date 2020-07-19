@@ -25,6 +25,7 @@ import { AddGroupComponent } from './add-group/add-group.component';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 import { DisableGroupComponent } from './disable-group/disable-group.component';
 import { FileUploadService } from '../../integration/fileUpload/file-upload.service';
+import { EditUserComponent } from  './edit-user/edit-user.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -248,6 +249,21 @@ export class DashboardComponent implements OnInit {
         });
       }
     })
+  }
+  editUser(id:string) {
+    const dialog = this.matDialog.open(EditUserComponent, {
+      width: '800px',
+      height: 'auto',
+      panelClass: 'customDialog',
+      data: {userId:id}
+    });
+    dialog.afterClosed().subscribe(result => {
+      if(result === 'yes'){
+        setTimeout(()=>{
+          this.getAllUser(this.pageNumber, this.pageSize);
+        },500)
+      }
+    });
   }
   addGroup() {
     const dialog = this.matDialog.open(AddGroupComponent, {

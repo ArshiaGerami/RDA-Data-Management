@@ -1,60 +1,50 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {
-  faEye,
-  faEyeSlash,
-} from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { LoginService } from '../../../integration/login/login.service';
 import { FileUploadService } from '../../../integration/fileUpload/file-upload.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
-  selector: 'app-add-new-user',
-  templateUrl: './add-new-user.component.html',
-  styleUrls: ['./add-new-user.component.scss']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.scss']
 })
+export class EditUserComponent implements OnInit {
 
-
-export class AddNewUserComponent implements OnInit {
-  faEye = faEye;
-  faEyeSlash = faEyeSlash;
-  public checkPassword = true;
-  public addUser: any = {};
   public getSetHeader: any = {};
   public page: any = {};
   public pageNumber = 0;
   public pageSize = 1000;
   public groupList: any = [];
-  public getName: any = {};
+  public getUserId:any={};
   public filterGroupList: any = [];
-  public getRoleAndGroup: any = {};
   public control = new FormControl()
 
-
-  constructor(
-    public dialogRef: MatDialogRef<AddNewUserComponent>,
+  constructor(public dialogRef: MatDialogRef<EditUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private matSnackBar: MatSnackBar,
     private fb: FormBuilder,
     private loginService: LoginService,
-    private constant: FileUploadService,
-    private matSnackBar: MatSnackBar,
-  ) { }
+    private constant: FileUploadService,) { }
 
     openSnackBar(message: string, action: string) {
-    this.matSnackBar.open(message, action, {
-      duration: 5000,
-      verticalPosition: "top",
-      panelClass: ['matSnackBar']
-    });
-  }
+      this.matSnackBar.open(message, action, {
+        duration: 5000,
+        verticalPosition: "top",
+        panelClass: ['matSnackBar']
+      });
+    }
 
   ngOnInit(): void {
+    this.getUserId =this.data.userId
     this.getAllGroup(this.pageNumber, this.pageSize);
     this.relations.push(this.fb.group({
       role: new FormControl(),
       group: new FormControl(''),
     }))
   }
+
   getAllGroup(pageNumber, pageSize) {
     this.getSetHeader = this.constant.addAutherization();
     this.page.page = pageNumber;
@@ -77,14 +67,9 @@ export class AddNewUserComponent implements OnInit {
        this.getAllGroup(this.pageNumber, this.pageSize)
     }
   }
-  passwordSuperAdminEyes(newValue: boolean) {
-    this.checkPassword = this.checkPassword !== newValue;
-  }
   formGroup = this.fb.group({
     item: this.fb.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      id:'',
       relations: new FormArray([])
     })
   })
@@ -112,14 +97,19 @@ export class AddNewUserComponent implements OnInit {
   cancel() {
     this.dialogRef.close();
   }
-  create() {
-    this.dialogRef.close('yes')
-    this.getSetHeader = this.constant.addAutherization();
-    this.loginService.createNewUser(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
-      this.openSnackBar("User has been created successfully ", "");
-    }, error => { 
-      this.openSnackBar("Some thing wrong please try again later", "");
-    });
+  update(){
+    console.log(this.getUserId);
+    this.formGroup.setValue({
+      item:this.fb.group({
+        id: this.getUserId
+      })   
+    })
+    this.getSetHeader = this.constant.addAutherization()
+    this.loginService.updateUsers(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
+      console.log(data)
+    }, error=> {
+
+    })
   }
 
 }
