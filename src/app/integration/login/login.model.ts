@@ -51,3 +51,10 @@ export class userCreate {
 export class CreateUser {
     item: userCreate[]
 }
+
+export class ChangePassword{
+    id:string;
+	currentPassword:string;
+	newPassword:string;
+	confirmedPassword:string;
+}

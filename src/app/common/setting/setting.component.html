@@ -11,8 +11,8 @@
                                 <mat-form-field class="form-field">
                                     <mat-label>Current Password</mat-label>
                                     <input matInput [type]="checkCurrentPassword ? 'password': 'text'" name="currentPassword"
-                                        placeholder="********" minlength="8" maxlength="255"
-                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #currentPassword="ngModel"
+                                        placeholder="********" minlength="6" maxlength="255"
+                                        #currentPassword="ngModel"
                                         [(ngModel)]="change.currentPassword" required />
                                     <mat-icon matSuffix (click)="currentPasswordEye(true)">
                                         <fa-icon [icon]="faEye" size="xs" [hidden]="!checkCurrentPassword"></fa-icon>
@@ -29,7 +29,7 @@
                                     <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
                                         placeholder="********" minlength="8" maxlength="255"
                                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #newPassword="ngModel"
-                                        [(ngModel)]="change.password" validateEqual="currentPassword" reverse="true" required />
+                                        [(ngModel)]="change.newPassword" validateEqual="currentPassword" reverse="true" required />
                                     <mat-icon matSuffix (click)="passwordEyes(true)">
                                         <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
                                         <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
@@ -45,7 +45,7 @@
                                     <input matInput [type]="checkConfirmPassword ? 'password': 'text'"
                                         name="confirmPassword" placeholder="********" minlength="8" maxlength="255"
                                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #confrimPassword="ngModel"
-                                        [(ngModel)]="change.confirmPassword" validateEqual="newPassword" required />
+                                        [(ngModel)]="change.confirmedPassword" validateEqual="newPassword" required />
                                     <mat-icon matSuffix (click)="confirmPasswordEye(true)">
                                         <fa-icon [icon]="faEye" size="xs" [hidden]="!checkConfirmPassword"></fa-icon>
                                         <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkConfirmPassword"></fa-icon>

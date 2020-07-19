@@ -44,7 +44,7 @@
                   <mat-label>Password</mat-label>
                   <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
                          placeholder="********" minlength="6" maxlength="255"
-                         
+                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                          #password="ngModel"
                          [(ngModel)]="logIn.password" required/>
                   <mat-icon matSuffix (click)="passwordEyes(true)">

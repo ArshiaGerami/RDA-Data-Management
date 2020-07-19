@@ -8,6 +8,8 @@ import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
 import { LoginService } from '../../../integration/login/login.service';
 import { FileUploadService } from '../../../integration/fileUpload/file-upload.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 @Component({
   selector: 'app-add-new-user',
   templateUrl: './add-new-user.component.html',
@@ -29,6 +31,7 @@ export class AddNewUserComponent implements OnInit {
   public filterGroupList: any = [];
   public getRoleAndGroup: any = {};
   public control = new FormControl()
+
 
   constructor(
     public dialogRef: MatDialogRef<AddNewUserComponent>,
@@ -53,7 +56,6 @@ export class AddNewUserComponent implements OnInit {
       role: new FormControl(),
       group: new FormControl(''),
     }))
-    this.filterGroup(this.control.valueChanges)
   }
   getAllGroup(pageNumber, pageSize) {
     this.getSetHeader = this.constant.addAutherization();
@@ -64,17 +66,17 @@ export class AddNewUserComponent implements OnInit {
       this.filterGroupList = data.data
     });
   }
-  filterGroup(value:any) {
+  filterGroup(value:string){
     if (value) {
       this.getSetHeader = this.constant.addAutherization();
       this.page.page = this.pageNumber;
       this.page.per_page = this.pageSize;
       this.page.query = value
       this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then((data: any) => {
-        this.groupList = data.data;
+      this.groupList = data.data;
       });
     } else {
-      this.getAllGroup(this.pageNumber, this.pageSize)
+       this.getAllGroup(this.pageNumber, this.pageSize)
     }
   }
   passwordSuperAdminEyes(newValue: boolean) {
@@ -117,7 +119,7 @@ export class AddNewUserComponent implements OnInit {
     this.getSetHeader = this.constant.addAutherization();
     this.loginService.createNewUser(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
       this.openSnackBar("User has been created successfully ", "");
-    }, error => {
+    }, error => { 
       this.openSnackBar("Some thing wrong please try again later", "");
     });
   }

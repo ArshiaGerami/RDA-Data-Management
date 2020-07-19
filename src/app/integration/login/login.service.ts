@@ -9,7 +9,8 @@ import {
   FileArray,
   GroupFilter,
   UserFilter,
-  CreateUser
+  CreateUser,
+  ChangePassword
  } from './login.model';
 
 export interface JWT {
@@ -115,5 +116,14 @@ export class LoginService {
       item: createUser.item,
     }
     return this.http.post(environment.host + '/user/create',body , setHeaders)
+  }
+  changePass(changePassword : ChangePassword, setHeaders){
+    const body: ChangePassword={
+      id: changePassword.id,
+      confirmedPassword: changePassword.confirmedPassword,
+      currentPassword: changePassword.currentPassword,
+      newPassword: changePassword.newPassword
+    }
+    return this.http.put(environment.host + '/user/changePassword',body, setHeaders)
   }
 }
