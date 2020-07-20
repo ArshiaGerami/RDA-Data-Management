@@ -26,6 +26,8 @@ export class AddNewUserComponent implements OnInit {
   public pageSize = 1000;
   public groupList: any = [];
   public getName: any = {};
+  public getGroupId:any=[];
+  public useGroupId:any={};
   public filterGroupList: any = [];
   public getRoleAndGroup: any = {};
   public control = new FormControl()
@@ -114,6 +116,19 @@ export class AddNewUserComponent implements OnInit {
   }
   create() {
     this.dialogRef.close('yes')
+    this.getGroupId =this.formGroup.controls.item.value.relations;
+    for(let i=0; i<= this.getGroupId.length; i++){
+      let checkId = this.getGroupId[i].group._id;
+      this.useGroupId= checkId;
+      break;
+    }
+    this.formGroup.patchValue({
+      item: {
+        relations:[{
+          group: this.useGroupId,
+        }]
+      }
+    })
     this.getSetHeader = this.constant.addAutherization();
     this.loginService.createNewUser(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
       this.openSnackBar("User has been created successfully ", "");
@@ -122,4 +137,4 @@ export class AddNewUserComponent implements OnInit {
     });
   }
 
-}
+} 

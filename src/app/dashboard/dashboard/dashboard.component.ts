@@ -250,12 +250,12 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  editUser(id:string) {
+  editUser(id:string, name:string, email:string) {
     const dialog = this.matDialog.open(EditUserComponent, {
       width: '800px',
       height: 'auto',
       panelClass: 'customDialog',
-      data: {userId:id}
+      data: {userId:id, userName:name, userEmail:email}
     });
     dialog.afterClosed().subscribe(result => {
       if(result === 'yes'){

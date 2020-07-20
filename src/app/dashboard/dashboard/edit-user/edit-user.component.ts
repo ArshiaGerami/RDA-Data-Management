@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { LoginService } from '../../../integration/login/login.service';
 import { FileUploadService } from '../../../integration/fileUpload/file-upload.service';
 
@@ -17,7 +17,11 @@ export class EditUserComponent implements OnInit {
   public pageNumber = 0;
   public pageSize = 1000;
   public groupList: any = [];
-  public getUserId:any={};
+  public getUserId: any = {};
+  public getUserName: any = {};
+  public getUserEmail: any = {};
+  public getGroupId:any=[];
+  public useGroupId:any={};
   public filterGroupList: any = [];
   public control = new FormControl()
 
@@ -26,18 +30,20 @@ export class EditUserComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private fb: FormBuilder,
     private loginService: LoginService,
-    private constant: FileUploadService,) { }
+    private constant: FileUploadService, ) { }
 
-    openSnackBar(message: string, action: string) {
-      this.matSnackBar.open(message, action, {
-        duration: 5000,
-        verticalPosition: "top",
-        panelClass: ['matSnackBar']
-      });
-    }
+  openSnackBar(message: string, action: string) {
+    this.matSnackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: "top",
+      panelClass: ['matSnackBar']
+    });
+  }
 
   ngOnInit(): void {
-    this.getUserId =this.data.userId
+    this.getUserId = this.data.userId;
+    this.getUserName = this.data.userName;
+    this.getUserEmail = this.data.userEmail
     this.getAllGroup(this.pageNumber, this.pageSize);
     this.relations.push(this.fb.group({
       role: new FormControl(),
@@ -54,61 +60,73 @@ export class EditUserComponent implements OnInit {
       this.filterGroupList = data.data
     });
   }
-  filterGroup(value:string){
+  filterGroup(value: string) {
     if (value) {
       this.getSetHeader = this.constant.addAutherization();
       this.page.page = this.pageNumber;
       this.page.per_page = this.pageSize;
       this.page.query = value
       this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then((data: any) => {
-      this.groupList = data.data;
+        this.groupList = data.data;
       });
     } else {
-       this.getAllGroup(this.pageNumber, this.pageSize)
+      this.getAllGroup(this.pageNumber, this.pageSize)
     }
   }
   formGroup = this.fb.group({
     item: this.fb.group({
-      id:'',
+      id: '',
+      name: '',
+      email: '',
+      passwrod: '',
       relations: new FormArray([])
     })
   })
-  get parrentNew(){
+  get parrentNew() {
     return this.formGroup.controls
   }
-  get items(){
-      return this.parrentNew.item
+  get items() {
+    return this.parrentNew.item
   }
-  get relations(){
-    return this.items.get('relations') as FormArray;   
+  get relations() {
+    return this.items.get('relations') as FormArray;
   }
-  addNewGroupAndRole(){
+  addNewGroupAndRole() {
     this.relations.push(this.fb.group({
       role: new FormControl(),
       group: new FormControl(''),
     }))
   }
 
-  AutoCompleteDisplay(item: any) {
-    if (item) {
-      return item.title;
-    }
+ AutoCompleteDisplay(item: any) {
+    return item.title
   }
   cancel() {
     this.dialogRef.close();
   }
-  update(){
-    console.log(this.getUserId);
-    this.formGroup.setValue({
-      item:this.fb.group({
-        id: this.getUserId
-      })   
+  update() {
+    this.dialogRef.close('yes')
+   this.getGroupId =this.formGroup.controls.item.value.relations;
+    for(let i=0; i<= this.getGroupId.length; i++){
+      let checkId = this.getGroupId[i].group._id;
+      this.useGroupId= checkId;
+      break;
+    }
+    this.formGroup.patchValue({
+      item: {
+        id: this.getUserId,
+        name: this.getUserName,
+        email: this.getUserEmail,
+        relations:[{
+          group: this.useGroupId,
+        }]
+      }
     })
     this.getSetHeader = this.constant.addAutherization()
     this.loginService.updateUsers(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
-      console.log(data)
-    }, error=> {
-
+      this.openSnackBar('User has been updated','')
+    }, error => {
+      this.openSnackBar('Something went wrong please try again','')
     })
   }
 
