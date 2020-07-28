@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit {
   public userPageNumber = 0;
   public userPageSize = 10;
   public page: any = {};
+  public pageUser:any={}
   public userList: any = [];
   public getSetHeader: any = {};
   public getIdForDisableAndEnableGroup: any = {};
@@ -95,8 +96,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = localStorage.getItem('jwt-token');
-    this.getAllGroups(this.pageNumber, this.pageSize)
-    this.getAllUser(this.userPageNumber, this.userPageSize);
   }
 
   showDashboard() {
@@ -108,11 +107,16 @@ export class DashboardComponent implements OnInit {
     this.showDashboardList = false;
     this.showUserList = true;
     this.showGroupList = false;
+    this.getAllUser(this.userPageNumber, this.userPageSize);
   }
   showGroup() {
     this.showDashboardList = false;
     this.showUserList = false;
     this.showGroupList = true;
+    setTimeout(() => {
+      this.page.groupId=''
+      this.getAllGroups(this.pageNumber, this.pageSize)
+    },500) 
   }
   getAllGroups(pageNumber, pageSize) {
     this.getSetHeader = this.constant.addAutherization();
@@ -132,7 +136,7 @@ export class DashboardComponent implements OnInit {
     this.page.pageNumber = this.pageNumber;
     this.page.pageSize = this.pageSize;
     this.page.query = filterValue.trim().toLowerCase();
-    this.page.groupId =''
+    this.page.groupId
     this.loginService.getFilterGroup(this.page, this.getSetHeader).toPromise().then(res => {
       this.groupList = res
       this.dataSource = new MatTableDataSource(this.groupList.data);
@@ -149,10 +153,10 @@ export class DashboardComponent implements OnInit {
   filterUser(filterValue: any) {
     if (filterValue) {
       this.getSetHeader = this.constant.addAutherization();
-      this.page.pageNumber = this.pageNumber;
-      this.page.pageSize = this.pageSize;
-      this.page.query = filterValue.trim().toLowerCase();
-      this.loginService.getUserFilter(this.page, this.getSetHeader).toPromise().then(res => {
+      this.pageUser.pageNumber = this.pageNumber;
+      this.pageUser.pageSize = this.pageSize;
+      this.pageUser.query = filterValue.trim().toLowerCase();
+      this.loginService.getUserFilter(this.pageUser, this.getSetHeader).toPromise().then(res => {
         this.userList = res;
         this.userSource = new MatTableDataSource(this.userList.data);
         setTimeout(() => {
@@ -180,9 +184,9 @@ export class DashboardComponent implements OnInit {
   }
   getAllUser(pageNumber, pageSize) {
     this.getSetHeader = this.constant.addAutherization();
-    this.page.page = pageNumber;
-    this.page.per_page = pageSize;
-    this.loginService.getUser(this.page, this.getSetHeader).toPromise().then(data => {
+    this.pageUser.page = pageNumber;
+    this.pageUser.per_page = pageSize;
+    this.loginService.getUser(this.pageUser, this.getSetHeader).toPromise().then(data => {
       this.userList = data;
       this.userLength = this.userList.total;
       this.userSource = new MatTableDataSource(this.userList.data);
@@ -274,6 +278,7 @@ export class DashboardComponent implements OnInit {
       if (result !== 'no') {
         this.getSetHeader = this.constant.addAutherization();
         this.getGroupItem.item = result;
+        this.getGroupItem.item.groupId = this.page.groupId
         this.loginService.addGroup(this.getGroupItem, this.getSetHeader).toPromise().then(data => {
           this.openSnackBar("Group successfully has been created", "")
           setTimeout(() => {
@@ -358,6 +363,9 @@ export class DashboardComponent implements OnInit {
         this.getSetHeader = this.constant.addAutherization();
         this.getGroupItem.item = result;
         this.getGroupItem.item.id = id;
+        if(this.page.groupId){
+        this.getGroupItem.item.groupId = this.page.groupId
+        }
         this.loginService.updateGroup(this.getGroupItem, this.getSetHeader).toPromise()
           .then(data => {
             this.openSnackBar("Group successfully has been updated", "");
@@ -370,4 +378,11 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+  newTable(groupId){
+    this.page.groupId = groupId
+    setTimeout(() => {
+      this.getAllGroups(this.pageNumber, this.pageSize)
+    },500)
+  }
+
 }
