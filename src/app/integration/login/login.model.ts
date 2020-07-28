@@ -18,13 +18,15 @@ export class getUpdateGroupDetail {
 export class UpdateGroup {
     item: getUpdateGroupDetail[];
 }
-export class File {
+// export class File {
 
-}
+// }
 export class FileArray {
-    files: File[]
+    // files: File[];
+    file:string;
     userId: string;
-    query: {}
+    // query: {}
+    groupId:string
 }
 export class GroupFilter {
     page: number;
@@ -50,6 +52,21 @@ export class userCreate {
 }
 export class CreateUser {
     item: userCreate[]
+}
+export class UpdateUserItem{
+    id:string;
+    name:string;
+    email:string;
+    password:string;
+    relations:[
+        {
+            "group":string,
+            "role":number
+        }
+    ]
+}
+export class UpdateUser{
+    item: UpdateUserItem[]
 }
 
 export class ChangePassword{

@@ -163,7 +163,7 @@ fa-icon{
   color:#fff;
   width:100%;
   height: 20px;
-  border-radius:0 10px;
+  // border-radius:0 10px;
 }
 /*Dashboard*/
 .dashboard{
@@ -213,5 +213,8 @@ table{
 @media(max-width:800px){
   .responsive_table{
     overflow-x: auto !important ;
+  }
+  .showAttachedDetail{
+    height: 200px;
   }
 }

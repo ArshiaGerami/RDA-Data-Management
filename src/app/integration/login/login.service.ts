@@ -10,7 +10,8 @@ import {
   GroupFilter,
   UserFilter,
   CreateUser,
-  ChangePassword
+  ChangePassword,
+  UpdateUser
  } from './login.model';
 
 export interface JWT {
@@ -105,9 +106,11 @@ export class LoginService {
   }
   uploadFile(fileArray: FileArray, setHeaders){
     const body : FileArray ={
-      files:fileArray.files,
+      // files:fileArray.files,
+      file:fileArray.file,
       userId:fileArray.userId,
-      query:fileArray.query
+      // query:fileArray.query
+      groupId:fileArray.groupId
     }
     return this.http.post(environment.host + '/file/uploads',body, setHeaders)
   }
@@ -116,6 +119,12 @@ export class LoginService {
       item: createUser.item,
     }
     return this.http.post(environment.host + '/user/create',body , setHeaders)
+  }
+  updateUsers(updateUser: UpdateUser, setHeaders){
+    const body: UpdateUser={
+      item:updateUser.item,
+    }
+    return this.http.put(environment.host + '/user/update',body, setHeaders)
   }
   changePass(changePassword : ChangePassword, setHeaders){
     const body: ChangePassword={

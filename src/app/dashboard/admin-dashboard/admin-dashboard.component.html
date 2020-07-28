@@ -59,18 +59,18 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-lg-12">
                 <div class="row">
-                  <input type="file" name="file" [(ngModel)]="checkSelector.file" #folderInput webkitDirectory (change)="handleFileInput(folderInput.files)">
+                  <input type="file" name="file" [(ngModel)]="sendFile.file" #folderInput webkitDirectory (change)="handleFileInput(folderInput.files)">
                 </div>
                 <div class="row mt-5 listBox">
-                  <div class="col-12">
+                  <div class="col-lg-10 col-md-10 col-sm-12">
                     <div class="row mt-2 showAttachedDetail" *ngFor="let item of attachmentList">
-                      <div class="col-md-4 col-lg-4 col-sm-12">
+                      <div class="col-md-6 col-lg-6 col-sm-12">
                         {{item.name |slice:0:15}}{{item.name.length > 15 ?'...':''}}
                       </div>
                       <div class="col-md-4 col-lg-4 col-sm-12">
                         {{item.type}}
                       </div>
-                      <div class="col-md-4 col-lg-4 col-sm-12 ml-auto">
+                      <div class="col-md-2 col-lg-2 col-sm-12 ml-auto">
                         <fa-icon (click)="deleteFile(item.name)"[icon]="faTimes" szie="xs" style="cursor: pointer;"></fa-icon>
                       </div>
                     </div>

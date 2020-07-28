@@ -25,13 +25,14 @@ export class AdminDashboardComponent implements OnInit {
   faSortAmountDownAlt = faSortAmountDownAlt;
   faProjectDiagram = faProjectDiagram;
   faTimes = faTimes;
-  public sendFile = {
-    files: [],
-    userId: '',
-    query: {
-      group: ''
-    }
-  };
+  // public sendFile = {
+  //   files: [],
+  //   userId: '',
+  //   query: {
+  //     group: ''
+  //   }
+  // };
+  public sendFile:any={}
   public getSetHeader: any = {};
   public userId = '';
   public groupName = '';
@@ -41,7 +42,7 @@ export class AdminDashboardComponent implements OnInit {
   public showCatelouge = false;
   public showProjectData = false;
   public attachmentList:any[]=[]
-  public checkSelector:any={};
+  // public checkSelector:any={};
   public storeAttachedFile:any[]=[];
 
   constructor(
@@ -53,7 +54,7 @@ export class AdminDashboardComponent implements OnInit {
     this.userId = check[0]._id;
     this.groupName = check[0].group._id;
     this.sendFile.userId = this.userId;
-    this.sendFile.query.group = this.groupName;
+    this.sendFile.groupId = this.groupName;
   }
   displayDashboard() {
     this.showDashboard = true;
@@ -80,15 +81,17 @@ export class AdminDashboardComponent implements OnInit {
     this.showProjectData = true;
   }
   handleFileInput(files) {
+    
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      console.log(files)
       let list: any={};
       list.name = file.name;
       list.type = file.type;
       list.size = file.size;
       this.attachmentList.unshift(list)
       const path = file.webkitRelativePath.split('/');
-      this.sendFile.files.push({file:path})
+      this.sendFile.file = path
     }
   }
   uploadFile() {
@@ -108,7 +111,7 @@ export class AdminDashboardComponent implements OnInit {
     this.attachmentList.splice(fileIndex,1);
     this.storeAttachedFile.splice(fileIndex,1);
     if(this.attachmentList.length === 0){
-    this.checkSelector.file='';
+    this.sendFile.file='';
     }
   }
 
