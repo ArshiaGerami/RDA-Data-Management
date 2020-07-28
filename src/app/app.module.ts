@@ -37,6 +37,7 @@ import { AddNewUserComponent } from './dashboard/dashboard/add-new-user/add-new-
 import { DisableGroupComponent } from './dashboard/dashboard/disable-group/disable-group.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditUserComponent } from './dashboard/dashboard/edit-user/edit-user.component';
+import { TableComponent } from './common/table/table.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EditUserComponent } from './dashboard/dashboard/edit-user/edit-user.com
     AddNewUserComponent,
     DisableGroupComponent,
     EditUserComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

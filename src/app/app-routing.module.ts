@@ -11,6 +11,7 @@ import { SwitchAccountComponent } from './common/switch-account/switch-account.c
 import { ProfileComponent } from './common/profile/profile.component';
 import { SettingComponent } from './common/setting/setting.component';
 import { ErrorMessageComponent } from './common/error-message/error-message.component';
+import { TableComponent } from './common/table/table.component';
 const routes: Routes = [
   {
     path: 'en/login',
@@ -57,6 +58,12 @@ const routes: Routes = [
     component: SettingComponent,
     canActivate:[RoleGuard],
     data:{expectedRole:[Role.user, Role.admin, Role.superUser, Role.superAdmin]}
+  },
+  {
+    path:'en/group/:groupId',
+    component: TableComponent,
+    canActivate:[RoleGuard],
+    data:{expectedRole:[Role.superAdmin]}
   },
   {
     path:'**',

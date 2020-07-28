@@ -1,9 +1,11 @@
 export class Group {
     page: number;
     per_page: number;
+    groupId:string
 }
 export class Item {
-    title: string
+    title: string;
+    groupId:string
 }
 export class CreateGroup {
     item = Item;
@@ -74,4 +76,8 @@ export class ChangePassword{
 	currentPassword:string;
 	newPassword:string;
 	confirmedPassword:string;
+}
+export class User{
+    page: number;
+    per_page: number;
 }

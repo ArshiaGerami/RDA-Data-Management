@@ -178,7 +178,8 @@
                       <!-- Weight Column -->
                       <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef> Name </th>
-                        <td mat-cell title="{{element.title}}" *matCellDef="let element">{{element.title |slice:0:20}}{{element.title.length > 20 ? '...':''}}</td>
+                        <td mat-cell title="{{element.title}}" *matCellDef="let element">
+                          <a [routerLink]="'/en/group/'+ element._id">{{element.title |slice:0:20}}{{element.title.length > 20 ? '...':''}}</a></td>
                       </ng-container>
 
                       <!-- Symbol Column -->

@@ -11,7 +11,8 @@ import {
   UserFilter,
   CreateUser,
   ChangePassword,
-  UpdateUser
+  UpdateUser,
+  User,
  } from './login.model';
 
 export interface JWT {
@@ -30,7 +31,8 @@ export class LoginService {
   getGroup(group: Group , setHeaders){
     const body: Group={
       page: group.page,
-      per_page: group.per_page
+      per_page: group.per_page,
+      groupId: group.groupId
     }
     return this.http.post(environment.host + '/group/get',body, setHeaders);
   }
@@ -62,10 +64,10 @@ export class LoginService {
     }
      return this.http.delete(environment.host + '/group/delete',options)
   }
-  getUser(group:Group, setHeaders){
-      const body: Group ={
-        page: group.page,
-        per_page: group.per_page
+  getUser(user:User, setHeaders){
+      const body: User ={
+        page: user.page,
+        per_page: user.per_page
       }
     return this.http.post(environment.host + '/user/get', body, setHeaders)
   }
