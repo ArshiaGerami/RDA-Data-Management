@@ -16,6 +16,7 @@ export class GroupDisable {
 export class getUpdateGroupDetail {
     id: string;
     title: string;
+    groupId:string;
 }
 export class UpdateGroup {
     item: getUpdateGroupDetail[];

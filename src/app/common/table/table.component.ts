@@ -15,7 +15,7 @@ import {
   faCheckCircle,
   faEdit
 } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-table',
@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
   public length = 0;
   public getGroupItem: any = {};
   public groupId:any={}
+  public oldGroupId:any={}
   faTrash = faTrash;
   faMinusCircle = faMinusCircle;
   faCheckCircle = faCheckCircle;
@@ -48,7 +49,8 @@ export class TableComponent implements OnInit {
     private loginService: LoginService,
     private matDialog: MatDialog,
     private matSnackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   openSnackBar(message: string, action: string) {
@@ -58,13 +60,11 @@ export class TableComponent implements OnInit {
       panelClass: ['matSnackBar']
     });
   }
-
-
   ngOnInit(): void {
     this.groupId = this.route.params.subscribe( params =>{
         this.page.groupId = params['groupId']
+        this.getAllGroups(this.pageNumber, this.pageSize)
     })
-    this.getAllGroups(this.pageNumber, this.pageSize)
   }
 
   getAllGroups(pageNumber, pageSize) {
@@ -193,6 +193,7 @@ export class TableComponent implements OnInit {
         this.getSetHeader = this.constant.addAutherization();
         this.getGroupItem.item = result;
         this.getGroupItem.item.id = id;
+        this.getGroupItem.item.groupId = this.page.groupId;
         this.loginService.updateGroup(this.getGroupItem, this.getSetHeader).toPromise()
           .then(data => {
             this.openSnackBar("Group successfully has been updated", "");
