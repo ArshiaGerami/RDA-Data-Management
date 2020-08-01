@@ -16,7 +16,7 @@
                     <div class="row mt-4">
                         <div class="col-md-4 col-sm-4 col-lg-4 mt-3" *ngFor="let role of relation">
                             <mat-card class="mat-card-custom" *ngIf="role.role ===0">
-                                <a (click)="gotoAccount('superAdmin')">
+                                <a (click)="gotoAccount('superAdmin', role.group._id)">
                                     <mat-card-header>
                                         <mat-card-title>
                                             <span>Super Admin</span>
@@ -28,7 +28,7 @@
                                 </a>
                             </mat-card>
                             <mat-card class="mat-card-custom" *ngIf="role.role ===1">
-                                <a (click)="gotoAccount('admin')">
+                                <a (click)="gotoAccount('admin',role.group._id)">
                                     <mat-card-header>
                                         <mat-card-title>
                                             <span>Admin</span>
@@ -40,7 +40,7 @@
                                 </a>
                             </mat-card>
                             <mat-card class="mat-card-custom" *ngIf="role.role ===2">
-                                <a (click)="gotoAccount('superUser')">
+                                <a (click)="gotoAccount('superUser', role.group._id)">
                                     <mat-card-header>
                                         <mat-card-title>
                                             <span>Super User</span>
@@ -52,7 +52,7 @@
                                 </a>
                             </mat-card>
                             <mat-card class="mat-card-custom" *ngIf="role.role ===3">
-                                <a (click)="gotoAccount('user')">
+                                <a (click)="gotoAccount('user', role.group._id)">
                                     <mat-card-header>
                                         <mat-card-title>
                                             <span>User</span>
@@ -69,4 +69,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> 

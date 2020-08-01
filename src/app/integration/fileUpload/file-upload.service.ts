@@ -23,7 +23,6 @@ export class FileUploadService {
     openSnackBar(message:string, action:string){
       this.matSnackBar.open(message, action,{
         duration:5000,
-        // verticalPosition:"top",
         horizontalPosition: this.horizontalPosition,
         verticalPosition: this.verticalPosition,
         panelClass:['matSnackBar']
@@ -48,30 +47,34 @@ export class FileUploadService {
       })
     }
   }
-  public switchAccount(any:string, name:string){
+  public switchAccount(any:string, groupId:string, name:string){
     if(any === 'superAdmin'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/'+name+'/super-admin/dashboard']);
       localStorage.setItem('dashboard', '/en/'+name+'/super-admin/dashboard');
       localStorage.setItem('login','true');
+      localStorage.setItem('groupId', groupId);
       }
     }else if(any === 'admin'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/admin/'+name+'/dashboard']);
       localStorage.setItem('dashboard', '/en/admin/'+name+'/dashboard');
       localStorage.setItem('login','true');
+      localStorage.setItem('groupId', groupId);
       }
     }else if(any === 'superUser'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/super-user/dashboard/'+name]);
       localStorage.setItem('dashboard', '/en/super-user/dashboard/'+name);
       localStorage.setItem('login','true');
+      localStorage.setItem('groupId', groupId);
       }
     }else if(any === 'user'){
       if(isPlatformBrowser(this.platFormId)){
       this.router.navigate(['/en/'+name+'/user/dashboard']);
       localStorage.setItem('dashboard', '/en/'+name+'/user/dashboard');
       localStorage.setItem('login','true');
+      localStorage.setItem('groupId', groupId);
       }
     }
     this.openSnackBar('You are login as ' + any,'');

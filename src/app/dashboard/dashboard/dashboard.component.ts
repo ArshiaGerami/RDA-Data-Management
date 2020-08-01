@@ -244,7 +244,7 @@ export class DashboardComponent implements OnInit {
         this.getSetHeader = this.constant.addAutherization();
         this.getIdForDisableAndEnableUser.id = id;
         this.loginService.disableUser(this.getIdForDisableAndEnableUser, this.getSetHeader).toPromise().then(data => {
-          this.openSnackBar("User successfully has been disabled", "");
+          this.openSnackBar("User successfully has been enabled", "");
           setTimeout(() => {
             this.getAllUser(this.pageNumber, this.pageSize);
           }, 500)
@@ -278,7 +278,9 @@ export class DashboardComponent implements OnInit {
       if (result !== 'no') {
         this.getSetHeader = this.constant.addAutherization();
         this.getGroupItem.item = result;
-        this.getGroupItem.item.groupId = this.page.groupId
+        if(this.page.groupId){
+          this.getGroupItem.item.groupId = this.page.groupId
+          }
         this.loginService.addGroup(this.getGroupItem, this.getSetHeader).toPromise().then(data => {
           this.openSnackBar("Group successfully has been created", "")
           setTimeout(() => {

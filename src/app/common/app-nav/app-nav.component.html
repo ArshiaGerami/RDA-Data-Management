@@ -5,10 +5,10 @@
   </button>
   <span *ngIf="showRoles && isUserlogedIn">
   <ul class="custom-ul" *ngFor="let role of relation">
-    <li (click)="switch('superAdmi')" *ngIf="role.role ===0">Super Admin</li>
-    <li (click)="switch('admin')" *ngIf="role.role ===1">Admin</li>
-    <li (click)="switch('superUser')" *ngIf="role.role ===2">Super User</li>
-    <li (click)="switch('user')" *ngIf="role.role ===3">User</li>
+    <li (click)="switch('superAdmi', role.group._id)" *ngIf="role.role ===0">Super Admin</li>
+    <li (click)="switch('admin', role.group._id)" *ngIf="role.role ===1">Admin</li>
+    <li (click)="switch('superUser', role.group._id)" *ngIf="role.role ===2">Super User</li>
+    <li (click)="switch('user', role.group._id)" *ngIf="role.role ===3">User</li>
   </ul>
 </span>
   <div class="navbar-collapse collapse" id="navbarNav">

@@ -25,10 +25,8 @@ export class UpdateGroup {
 
 // }
 export class FileArray {
-    // files: File[];
     file:string;
     userId: string;
-    // query: {}
     groupId:string
 }
 export class GroupFilter {
@@ -41,7 +39,7 @@ export class UserFilter {
     page: number;
     per_page: number;
     query: string;
-}
+} 
 export class userCreate {
     password: string;
     name: string;

@@ -108,10 +108,8 @@ export class LoginService {
   }
   uploadFile(fileArray: FileArray, setHeaders){
     const body : FileArray ={
-      // files:fileArray.files,
       file:fileArray.file,
       userId:fileArray.userId,
-      // query:fileArray.query
       groupId:fileArray.groupId
     }
     return this.http.post(environment.host + '/file/uploads',body, setHeaders)

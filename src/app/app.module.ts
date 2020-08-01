@@ -38,6 +38,7 @@ import { DisableGroupComponent } from './dashboard/dashboard/disable-group/disab
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditUserComponent } from './dashboard/dashboard/edit-user/edit-user.component';
 import { TableComponent } from './common/table/table.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { TableComponent } from './common/table/table.component';
     MatPaginatorModule,
     MatIconModule,
     MatDialogModule,
+    MatProgressBarModule,
     MatAutocompleteModule,
   ],
   providers: [

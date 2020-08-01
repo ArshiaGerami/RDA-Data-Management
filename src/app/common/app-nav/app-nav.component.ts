@@ -53,7 +53,7 @@ export class AppNavComponent implements OnInit, AfterViewInit {
     this.authenticationService.logOut();
     this.router.navigate(['/en/login']);
   }
-  switch(any: string) {
-    this.switchAccount.switchAccount(any, this.userName)
+  switch(any: string, groupId:string) {
+    this.switchAccount.switchAccount(any,groupId, this.userName)
   }
 }

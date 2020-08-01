@@ -21,8 +21,8 @@ export class SwitchAccountComponent implements OnInit {
     const getUser =JSON.parse(localStorage.getItem('user'));
     this.userName = getUser.name;
   }
-  gotoAccount(any:string){
-   this.switchAccount.switchAccount(any, this.userName)
+  gotoAccount(any:string, id:string){
+   this.switchAccount.switchAccount(any,id, this.userName)
   }
   
 }
