@@ -19,13 +19,17 @@
                             <mat-form-field class="form-field">
                                 <mat-label>Password</mat-label>
                                 <input matInput [type]="checkPassword ? 'password': 'text'" name="password"
-                                    placeholder="********" minlength="8" maxlength="255"
+                                    placeholder="********" minlength="8" maxlength="255" #userPassword
                                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" formControlName="password" />
                                 <mat-icon matSuffix (click)="passwordSuperAdminEyes(true)">
                                     <fa-icon [icon]="faEye" size="xs" [hidden]="!checkPassword"></fa-icon>
                                     <fa-icon [icon]="faEyeSlash" size="xs" [hidden]="checkPassword"></fa-icon>
                                 </mat-icon>
                             </mat-form-field>
+                            <div *ngIf="userPassword" class="mt-2">
+                                <mat-password-strength #passwordStrength [password]="userPassword.value"></mat-password-strength>
+                                <mat-password-strength-info [passwordComponent]="passwordStrength"></mat-password-strength-info>
+                            </div>
                         </div>
                         <div class="col-md-8 col-lg-8 col-sm-12 border-right">
                             <div formArrayName="relations">
@@ -55,7 +59,7 @@
                                                             placeholder="Search the group or sub group" matInput
                                                             (formControl)="control"
                                                             formControlName="group" [matAutocomplete]="auto"
-                                                            (keyup)="filterGroup(input.value)">
+                                                            (keyup)="filterGroup(input.value)" required>
                                                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="AutoCompleteDisplay">
                                                             <mat-option *ngFor="let group of groupList"
                                                                 [value]="group">

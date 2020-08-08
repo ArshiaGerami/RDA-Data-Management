@@ -79,6 +79,7 @@ export class EditUserComponent implements OnInit {
       name: '',
       email: '',
       passwrod: '',
+      avatar:'',
       relations: new FormArray([])
     })
   })

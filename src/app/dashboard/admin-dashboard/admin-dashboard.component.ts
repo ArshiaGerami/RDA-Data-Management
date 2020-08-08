@@ -84,6 +84,17 @@ export class AdminDashboardComponent implements OnInit {
     this.showMap = false;
     this.showProjectData = true;
   }
+  checkFile(event:any){
+    console.log(event)
+    let reader = new FileReader();
+    if(event.target.files.length > 0){
+    reader.onload = (event:any) =>{
+      this.attachmentList.push(event.target.result);
+    }
+  }
+    reader.readAsDataURL(event.target.files[0])
+    console.log(this.attachmentList);
+  }
   // handleFileInput(files) {
     
   //   for (let i = 0; i < files.length; i++) {
@@ -98,53 +109,53 @@ export class AdminDashboardComponent implements OnInit {
   //     this.sendFile.file = path
   //   }
   // }
-  uploadFile(file) {
-    console.log('File', file.data)
-    const formData = new FormData();  
-    formData.append('file', file.data);  
-    console.log(formData.append('file', file.data))
-    file.inProgress = true;  
-    this.getSetHeader = this.constant.addAutherization();
-    this.loginService.uploadFile(this.sendFile, this.getSetHeader).pipe(
-      map( event => {
-        switch (event.type){
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-            case HttpEventType.Response:
-              return event
-        }
-      }),
-      catchError((error: HttpErrorResponse) => {  
-        file.inProgress = false;  
-        return of(`${file.data.name} upload failed.`);  
-      })).subscribe((event: any) => {  
-        if (typeof (event) === 'object') {  
-          console.log(event.body);  
-        }  
-      }); 
-  }
+  // uploadFile(file) {
+  //   console.log('File', file.data)
+  //   const formData = new FormData();  
+  //   formData.append('file', file.data);  
+  //   console.log(formData.append('file', file.data))
+  //   file.inProgress = true;  
+  //   this.getSetHeader = this.constant.addAutherization();
+  //   this.loginService.uploadFile(this.sendFile, this.getSetHeader).pipe(
+  //     map( event => {
+  //       switch (event.type){
+  //         case HttpEventType.UploadProgress:
+  //           file.progress = Math.round(event.loaded * 100 / event.total);
+  //           break;
+  //           case HttpEventType.Response:
+  //             return event
+  //       }
+  //     }),
+  //     catchError((error: HttpErrorResponse) => {  
+  //       file.inProgress = false;  
+  //       return of(`${file.data.name} upload failed.`);  
+  //     })).subscribe((event: any) => {  
+  //       if (typeof (event) === 'object') {  
+  //         console.log(event.body);  
+  //       }  
+  //     }); 
+  // }
 
-  private uploadFiles() {  
-    this.fileUpload.nativeElement.value = '';  
-    this.files.forEach(file => {  
-      console.log(file)
-      this.uploadFile(file);  
-    });  
-}
+//   private uploadFiles() {  
+//     this.fileUpload.nativeElement.value = '';  
+//     this.files.forEach(file => {  
+//       console.log(file)
+//       this.uploadFile(file);  
+//     });  
+// }
 
-onClick() {  
-  const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {  
-  for (let index = 0; index < fileUpload.files.length; index++)  
-  {  
-   const file = fileUpload.files[index];  
-   this.files.push({ data: file, inProgress: false, progress: 0});  
-   console.log(this.files)
-  }  
-    this.uploadFiles();  
-  };  
-  fileUpload.click();  
-}
+// onClick() {  
+//   const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {  
+//   for (let index = 0; index < fileUpload.files.length; index++)  
+//   {  
+//    const file = fileUpload.files[index];  
+//    this.files.push({ data: file, inProgress: false, progress: 0});  
+//    console.log(this.files)
+//   }  
+//     this.uploadFiles();  
+//   };  
+//   fileUpload.click();  
+// }
   deleteFile(name:any){
     let fileIndex = this.files.findIndex(x => x.name === name);
     this.files.splice(fileIndex,1);

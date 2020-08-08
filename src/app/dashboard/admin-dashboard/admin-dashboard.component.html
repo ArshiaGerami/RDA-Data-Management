@@ -60,14 +60,14 @@
               <div class="col-md-12 col-sm-12 col-lg-12">
                 <div class="row">
                   <input type="file" name="file" [(ngModel)]="sendFile.file" #fileUpload id="fileUpload"
-                    name="fileUpload" multiple="multiple">
+                    name="fileUpload" multiple="multiple" (change)="checkFile($event)">
                 </div>
                 <div class="row mt-5 listBox">
                   <div class="col-lg-10 col-md-10 col-sm-12">
-                    <div class="row mt-2" *ngFor="let item of files">
+                    <div class="row mt-2" *ngFor="let item of attachmentList">
                       <div class="col-md-10 col-lg-10 col-sm-12">
-                        <mat-progress-bar [value]="item.progress"></mat-progress-bar>
-                        {{item.data.name |slice:0:15}}{{item.data.name.length > 15 ?'...':''}}
+                        <!-- <mat-progress-bar [value]="item.progress"></mat-progress-bar> -->
+                        {{item.name |slice:0:15}}{{item.name.length > 15 ?'...':''}}
                       </div>
                       <div class="col-md-2 col-lg-2 col-sm-12 ml-auto">
                         <fa-icon (click)="deleteFile(item.name)" [icon]="faTimes" szie="xs" style="cursor: pointer; color:blue">
@@ -83,7 +83,7 @@
                 </div>
                 <div class="row mt-2">
                   <div class="col-12">
-                    <button class="btn btn-primary" (click)="onClick()">Upload</button>
+                    <button class="btn btn-primary">Upload</button>
                   </div>
                 </div>
               </div>

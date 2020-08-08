@@ -153,10 +153,10 @@
                   <h1 class="mb-0">Groups</h1>
                   <hr class="mt-0">
                   <button class="btn btn-secondary" (click)="addGroup()">Add Group</button>
-                  <mat-form-field class="form-field">
+                  <mat-form-field class="form-field" *ngIf="!data">
                     <input matInput (keyup)="filter($event.target.value)" placeholder="Search">
                   </mat-form-field>
-                  <div class="responsive_table">
+                  <div class="responsive_table" *ngIf="!data">
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                       <!--- Note that these columns can be defined in any order.
@@ -179,7 +179,9 @@
                       <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef> Name </th>
                         <td mat-cell title="{{element.title}}" *matCellDef="let element">
-                          <a class="tableLink" (click)="newTable(element._id)">{{element.title |slice:0:20}}{{element.title.length > 20 ? '...':''}}</a></td>
+                          <a class="tableLink" (click)="newTable(element._id)">
+                            {{element.title |slice:0:20}}{{element.title.length > 20 ? '...':''}}</a>
+                          </td>
                       </ng-container>
 
                       <!-- Symbol Column -->
@@ -223,6 +225,11 @@
                     </table>
                     <mat-paginator #myPaginator [pageIndex]=0 [pageSize]="pageSize" [length]="length"
                       (page)="getAllGroups($event.pageIndex +1, pageSize)" showFirstLastButtons></mat-paginator>
+                  </div>
+                  <div class="row mt-4" *ngIf="data">
+                    <div class="col-md-6 col-sm-12 col-lg-6 text-center">
+                          <p>No data found, You can add new group</p>
+                    </div>
                   </div>
                 </mat-card-content>
                 </form>

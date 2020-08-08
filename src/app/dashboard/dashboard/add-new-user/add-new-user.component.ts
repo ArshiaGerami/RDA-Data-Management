@@ -133,7 +133,11 @@ export class AddNewUserComponent implements OnInit {
     this.loginService.createNewUser(this.formGroup.value, this.getSetHeader).toPromise().then(data => {
       this.openSnackBar("User has been created successfully ", "");
     }, error => { 
+      if(error.error === 'password incorrect'){
+        this.openSnackBar("Password is wrong please try again", "");
+      }else{
       this.openSnackBar("Some thing wrong please try again later", "");
+      }
     });
   }
 

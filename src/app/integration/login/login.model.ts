@@ -59,6 +59,7 @@ export class UpdateUserItem{
     name:string;
     email:string;
     password:string;
+    avatar:string;
     relations:[
         {
             "group":string,

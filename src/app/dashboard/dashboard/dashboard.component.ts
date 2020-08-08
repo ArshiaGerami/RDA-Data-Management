@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
   public groupId: any = {};
   public length = 0;
   public userLength = 0
+  public data= false;
   public pageNumber = 0;
   public pageSize = 10;
   public userPageNumber = 0;
@@ -124,9 +125,14 @@ export class DashboardComponent implements OnInit {
     this.page.per_page = pageSize;
     this.loginService.getGroup(this.page, this.getSetHeader).toPromise().then((data: any) => {
       this.groupList = data;
-      this.length = this.groupList.total;
+      if(this.groupList.total === 0){
+        this.data =true;
+      }else{
+      this.data =false;
+      this.length = this.groupList.total
       this.dataSource = new MatTableDataSource(this.groupList.data);
       this.dataSource.sort = this.sort;
+      }
     })
   }
 
@@ -275,7 +281,7 @@ export class DashboardComponent implements OnInit {
       height: 'auto',
     });
     dialog.afterClosed().subscribe(result => {
-      if (result !== 'no') {
+      if (result !== undefined && result !=='no') {
         this.getSetHeader = this.constant.addAutherization();
         this.getGroupItem.item = result;
         if(this.page.groupId){
