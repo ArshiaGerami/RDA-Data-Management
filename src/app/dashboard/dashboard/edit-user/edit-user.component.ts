@@ -22,7 +22,10 @@ export class EditUserComponent implements OnInit {
   public getUserEmail: any = {};
   public getGroupId:any=[];
   public useGroupId:any={};
+  public getDataIdGroup:any={};
   public filterGroupList: any = [];
+  public getRelations:any=[];
+  public checkEachGroupRole:any=[]
   public control = new FormControl()
 
   constructor(public dialogRef: MatDialogRef<EditUserComponent>,
@@ -43,10 +46,11 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.getUserId = this.data.userId;
     this.getUserName = this.data.userName;
-    this.getUserEmail = this.data.userEmail
+    this.getUserEmail = this.data.userEmail;
+    this.getRelations = this.data.relations;
     this.getAllGroup(this.pageNumber, this.pageSize);
     this.relations.push(this.fb.group({
-      role: new FormControl(),
+      role:new FormControl(''),
       group: new FormControl(''),
     }))
   }
@@ -130,5 +134,4 @@ export class EditUserComponent implements OnInit {
       this.openSnackBar('Something went wrong please try again','')
     })
   }
-
 }

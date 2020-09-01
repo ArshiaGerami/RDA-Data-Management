@@ -66,8 +66,8 @@
                   <div class="col-lg-10 col-md-10 col-sm-12">
                     <div class="row mt-2" *ngFor="let item of attachmentList">
                       <div class="col-md-10 col-lg-10 col-sm-12">
-                        <!-- <mat-progress-bar [value]="item.progress"></mat-progress-bar> -->
-                        {{item.name |slice:0:15}}{{item.name.length > 15 ?'...':''}}
+                        <mat-progress-bar [value]="item.progress"></mat-progress-bar>
+                        <!-- {{item.name |slice:0:15}}{{item.name.length > 15 ?'...':''}} -->
                       </div>
                       <div class="col-md-2 col-lg-2 col-sm-12 ml-auto">
                         <fa-icon (click)="deleteFile(item.name)" [icon]="faTimes" szie="xs" style="cursor: pointer; color:blue">

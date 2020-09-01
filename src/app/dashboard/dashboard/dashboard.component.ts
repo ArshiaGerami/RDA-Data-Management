@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
   public getGroupItem: any = {};
   public getIdForDisableAndEnableUser: any = {};
   public getUserFilter: any = {};
+  public checkRelationsOfUser:any=[];
 
   displayedColumns: string[] = ['no', 'id', 'name', 'status', 'createdAt', 'action'];
   displayedUserColumns: string[] = ['no', 'id', 'name', 'email', 'role', 'createdAt', 'action']
@@ -261,11 +262,18 @@ export class DashboardComponent implements OnInit {
     })
   }
   editUser(id:string, name:string, email:string) {
+    for(let item of this.userList.data){
+      if(id === item._id){
+        for(let relation of item.relations){
+          this.checkRelationsOfUser.push(relation)
+        }
+      }
+    }
     const dialog = this.matDialog.open(EditUserComponent, {
       width: '800px',
       height: 'auto',
       panelClass: 'customDialog',
-      data: {userId:id, userName:name, userEmail:email}
+      data: {userId:id, userName:name, userEmail:email, relations:this.checkRelationsOfUser}
     });
     dialog.afterClosed().subscribe(result => {
       if(result === 'yes'){

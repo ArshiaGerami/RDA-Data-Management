@@ -39,7 +39,7 @@ export class AppNavComponent implements OnInit, AfterViewInit {
       }
     setTimeout(() => {
       this.checkForAllowUser()
-    },7000)
+    },8000)
   }
   ngAfterViewInit(){
   }
